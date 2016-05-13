@@ -1,0 +1,41 @@
+<header>
+  <h1>KeTchUp</h1>
+  <h3>明日のために調べよう</h3>
+</header>
+<div class="text_area">
+  <div id="word_area">
+    <div id="word" class="fadein">
+      <label for="detail"><%= @project.id %>: <%= @project.name %></label>
+      <input type="checkbox" id="detail" class="on-off" />
+      <div id="content" class="detail_content">
+        <%= @project.about %>
+      </div>
+    </div>
+</div>
+  <button class="btn btn-warning" onclick="fav()">お気に入り登録</button>
+</div>
+<div id="link_area" class="link_area">
+  <%= link_to '詳細', detail_path(@project.name), :class => "btn btn-primary", :remote => true %>
+  <%= link_to '一覧', projects_detail_path, :class => "btn btn-success" %>
+</div>
+<div class="fav-list">
+  <button class="btn btn-info" onclick="list()">お気に入り一覧</button>
+  <button class="btn btn-danger" onclick="clearall()">クリア</button>
+</div>
+<div id="show_result"></div>
+<div id="test"></div>
+<script>
+function new_project() {
+  $.ajax({
+    url: 'index',
+    type: 'GET',
+    dataType: 'script'
+    });
+  setTimeout(execute,8500);
+  }
+
+  setInterval(new_project, 10000);
+</script>
+<%= stylesheet_link_tag "index", :media => "all" %>
+<%= javascript_include_tag "fade" %>
+<%= javascript_include_tag "fav" %>

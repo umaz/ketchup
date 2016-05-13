@@ -1,0 +1,19 @@
+<h1>一覧</h1>
+<table class="table table-striped">
+  <tr>
+    <th>企画番号</th>
+    <th>企画名</th>
+    <th>企画団体名</th>
+    <th>企画種類</th>
+  </tr>
+  <% @projects.each do |project| %>
+  <tr>
+    <td><%= link_to project.id, detail_path(project.name), :class => "btn btn-primary" %></td>
+    <td><%= project.name %></td>
+    <td><%= project.group %></td>
+    <td><%= project.kind %></td>
+  </tr>
+  <% end %>
+</table>
+<%= link_to '新規登録', 'new' %>
+<%= link_to 'トップ', 'index' %>

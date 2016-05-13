@@ -1,0 +1,53 @@
+header{
+  text-align: center;
+  margin-top: 5%;
+}
+
+#word{
+  font-size: 3em;
+  line-height: 1.5em;
+}
+
+.text_area{
+  text-align: center;
+  margin: 5% 5% 10% 5%;
+}
+
+.link_area{
+  text-align: center;
+}
+
+.fadein {
+  animation: fadein 3s;
+  -webkit-animation: fadein 3s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.fadeout {
+  animation: fadeout 2s;
+  -webkit-animation: fadeout 2s;
+}
+
+@keyframes fadeout {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@-webkit-keyframes fadeout {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+.fav-list {
+  text-align: center;
+  margin-top: 5%;
+}
