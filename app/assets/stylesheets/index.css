@@ -3,17 +3,30 @@ header{
   margin-top: 5%;
 }
 
+#word_area{
+  height:250px;
+}
+
 #word{
   font-size: 3em;
-  line-height: 1.5em;
+  background-color: #FBD591;
+  margin: 20px auto;
 }
 
-.text_area{
-  text-align: center;
-  margin: 5% 5% 10% 5%;
+#word :hover{
+  background-color: #F6E6C9;
 }
 
-.link_area{
+#word a{
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 30px 30px;
+  color: #381D2A;
+  text-decoration: none;
+}
+
+.center{
   text-align: center;
 }
 
@@ -47,39 +60,10 @@ header{
   to   { opacity: 0; }
 }
 
+.form {
+  width: 80%;
+}
 .fav-list {
   text-align: center;
   margin-top: 5%;
-}
-input {
-  display: none;
-}
-label {
-  cursor: pointer;
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: 4px;
-  background: #0bd;
-  color: #FFF;
-  -webkit-transition: 0.1s;
-  transition: 0.1s;
-}
-label:hover {
-  background: #0090aa;
-}
-.detail_content {
-  -webkit-transition: .3s ease;
-  transition: .3s ease;
-  height: 0;
-  overflow: hidden;
-  background: #F5F0CF;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 0;
-  border-radius: 5px;
-  font-size: 16px;
-}
-input:checked + .detail_content {
-  height: auto;
-  padding: 15px;
 }

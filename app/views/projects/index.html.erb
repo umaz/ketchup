@@ -2,28 +2,32 @@
   <h1>KeTchUp</h1>
   <h3>明日のために調べよう</h3>
 </header>
-<div class="text_area">
-  <div id="word_area">
-    <div id="word" class="fadein">
-      <label for="detail"><%= @project.id %>: <%= @project.name %></label>
-      <input type="checkbox" id="detail" class="on-off" />
-      <div id="content" class="detail_content">
-        <%= @project.about %>
-      </div>
-    </div>
+<div id="word_area" class="center">
+  <div id="word" class="fadein">
+    <%= link_to detail_path(@project.name) do %>
+      <%= @project.id %>: <%= @project.name %>
+    <% end %>
+  </div>
 </div>
+<div class="center">
   <button class="btn btn-warning" onclick="fav()">お気に入り登録</button>
 </div>
-<div id="link_area" class="link_area">
-  <%= link_to '詳細', detail_path(@project.name), :class => "btn btn-primary", :remote => true %>
-  <%= link_to '一覧', projects_detail_path, :class => "btn btn-success" %>
+<div class="form-group">
+  <div class="input-group">
+    <input type="text" class="form-control">
+    <span class="input-group-btn">
+      <%=link_to projects_detail_path, :class=> "btn btn-primary" do %>
+        <i class='glyphicon glyphicon-search'></i>検索
+      <% end %>
+    </span>
+  </div>
 </div>
 <div class="fav-list">
   <button class="btn btn-info" onclick="list()">お気に入り一覧</button>
   <button class="btn btn-danger" onclick="clearall()">クリア</button>
 </div>
 <div id="show_result"></div>
-<div id="test"></div>
+
 <script>
 function new_project() {
   $.ajax({
