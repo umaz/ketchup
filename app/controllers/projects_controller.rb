@@ -1,8 +1,6 @@
 class ProjectsController < ApplicationController
   def index
     @project = Project.all.sample
-    gon.project_name = @project.name
-    gon.project_id = @project.id
   end
 
   def list
@@ -11,6 +9,8 @@ class ProjectsController < ApplicationController
 
   def detail
     @project = Project.find_by(name: params[:name])
+    gon.project_name = @project.name
+    gon.project_id = @project.id
   end
 
   def new
