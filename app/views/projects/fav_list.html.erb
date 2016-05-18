@@ -4,10 +4,10 @@
     <th>お気に入り一覧</th>
   </tr>
   <tr>
-    <% @lists.each do |item| %>
+    <% @lists.each do |key, val| %>
     <td>
-      <%= link_to detail_path(item) do %>
-        <%= item %>
+      <%= link_to detail_path(key) do %>
+        <%= val %>
       <% end %>
     </td>
   </tr>

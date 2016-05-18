@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   get 'projects/search'
 
-  get 'projects/detail/:name' => 'projects#detail', as: 'detail'
+  get 'projects/detail/:id' => 'projects#detail', as: 'detail'
 
   get 'projects/fav'
 
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   post 'projects' => 'projects#create'
 
-  post 'fav' => 'projects#fav'
+  post 'projects/fav' => 'projects#fav'
 
   post 'fav_list' => 'projects#fav_list'
 

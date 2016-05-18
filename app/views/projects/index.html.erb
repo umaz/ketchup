@@ -4,7 +4,7 @@
 </header>
 <div id="word_area" class="center">
   <div id="word" class="fadein">
-    <%= link_to detail_path(@project.name) do %>
+    <%= link_to detail_path(@project.id) do %>
       <%= @project.id %>: <%= @project.name %>
     <% end %>
   </div>
