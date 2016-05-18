@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 
   get 'projects/detail/:name' => 'projects#detail', as: 'detail'
 
+  get 'projects/fav'
+
+  get 'projects/fav_list'
+
   post 'projects' => 'projects#create'
 
   post 'fav' => 'projects#fav'

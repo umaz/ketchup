@@ -9,21 +9,20 @@ class ProjectsController < ApplicationController
 
   def detail
     @project = Project.find_by(name: params[:name])
-  end
-
-  def fav
-    if cookies[:fav] == nil
-      key = Array.new
-    else
-      key = JSON.parse cookies[:fav]
+    def fav
+      if cookies[:fav] == nil
+        key = Array.new
+      else
+        key = JSON.parse(cookies[:fav])
+      end
+      key.push(params[:data])
+      cookies[:fav] = {:value => key.uniq.to_json, :expires => 20.year.from_now }
+      redirect_to detail_path(params[:data])
     end
-    key.push(params[:data])
-    cookies[:fav] = {:value => key.uniq.to_json, :expires => 20.year.from_now }
-    redirect_to detail_path(params[:data])
   end
 
   def fav_list
-    @list = JSON.parse cookies[:fav]
+    @lists = JSON.parse(cookies[:fav])
   end
 
   def new

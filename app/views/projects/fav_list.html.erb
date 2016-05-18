@@ -1,10 +1,15 @@
-<h1>
-<%= @list.each do |fav| %>
-<%= fav %><br>
-<% end %>
-</h1>
-<h2>
-<%= @test.each do |fav| %>
-<%= fav %><br>
-<% end %>
-</h2>
+<h1>お気に入り</h1>
+<table class="table table-striped">
+  <tr>
+    <th>お気に入り一覧</th>
+  </tr>
+  <tr>
+    <% @lists.each do |item| %>
+    <td>
+      <%= link_to detail_path(item) do %>
+        <%= item %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>
