@@ -1,9 +1,10 @@
 if (typeof localStorage !== 'undefined') {
   // Web Storageに関する処理を記述
   function fav() {
-    var link = "<a href=\"detail/" + gon.project_name +"\">" + gon.project_name + "</a>"
+    var link = "<a href=\"detail/" + gon.project_name +"\">" + gon.project_name + "</a>";
+    var text = gon.project_name + "をお気に入り登録しました";
     localStorage.setItem(gon.project_name, link);
-    alert(gon.project_name + "をお気に入り登録しました。");
+    alert(text);
   }
   //保存されているデータをリスト表示する
   function list() {

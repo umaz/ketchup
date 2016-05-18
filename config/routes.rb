@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 
   post 'projects' => 'projects#create'
 
+  post 'fav' => 'projects#fav'
+
+  post 'fav_list' => 'projects#fav_list'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

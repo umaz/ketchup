@@ -2,8 +2,9 @@
 <h2><%= @project.group %></h2>
 <p><%= @project.about %></p>
 <div class="center">
-  <button class="btn btn-warning" onclick="fav()">お気に入り登録</button>
+  <%= button_to "お気に入り登録", {:action => "fav", :data => @project.name}, :class => "btn btn-warning" %>
 </div>
+
 <%= link_to '一覧', projects_detail_path, :class => "btn btn-primary" %>
 <%= link_to 'トップ', projects_index_path, :class => "btn btn-success" %>
 <%= javascript_include_tag "fav" %>

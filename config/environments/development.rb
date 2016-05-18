@@ -45,5 +45,5 @@ Rails.application.configure do
   config.assets.debug = true
 
   # 静的ファイルを保持しないようにする
-  config.serve_static_assets = false
+  config.serve_static_files = false
 end

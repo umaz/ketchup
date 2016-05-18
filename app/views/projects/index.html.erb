@@ -19,6 +19,10 @@
     </span>
   </div>
 </div>
+<div class="center">
+  <%= button_to "お気に入り一覧", {:action => "fav_list"}, :class => "btn btn-warning" %>
+</div>
+
 <div class="fav-list">
   <button class="btn btn-info" onclick="list()">お気に入り一覧</button>
   <button class="btn btn-danger" onclick="clearall()">クリア</button>
@@ -38,5 +42,5 @@ function new_project() {
   setInterval(new_project, 10000);
 </script>
 <%= stylesheet_link_tag "index", :media => "all" %>
-<%= javascript_include_tag "fade" %>
 <%= javascript_include_tag "fav" %>
+<%= javascript_include_tag "fade" %>
