@@ -59,11 +59,3 @@ header{
   from { opacity: 1; }
   to   { opacity: 0; }
 }
-
-.form {
-  width: 80%;
-}
-.fav-list {
-  text-align: center;
-  margin-top: 5%;
-}
