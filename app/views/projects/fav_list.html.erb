@@ -10,6 +10,10 @@
         <%= val %>
       <% end %>
     </td>
+    <td>
+      <%= button_to "お気に入り解除", {:action => "fav_remove", :data => key}, :class => "btn btn-danger" %>
+    </td>
   </tr>
   <% end %>
 </table>
+<%= link_to 'トップ', projects_index_path, :class => "btn btn-success" %>

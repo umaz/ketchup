@@ -24,7 +24,23 @@ class ProjectsController < ApplicationController
   end
 
   def fav_list
-    @lists = JSON.parse(cookies[:fav])
+    if cookies[:fav] == nil
+      @lists = Hash.new
+    else
+      @lists = JSON.parse(cookies[:fav])
+    end
+  end
+
+  def fav_delete
+    cookies.delete(:fav)
+    redirect_to projects_index_path
+  end
+
+  def fav_remove
+    key = JSON.parse(cookies[:fav])
+    key.delete(params[:data])
+    cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
+    redirect_to projects_fav_list_path
   end
 
   def new

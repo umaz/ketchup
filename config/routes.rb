@@ -9,15 +9,15 @@ Rails.application.routes.draw do
 
   get 'projects/detail/:id' => 'projects#detail', as: 'detail'
 
-  get 'projects/fav'
-
   get 'projects/fav_list'
+
+  get 'projects/fav_delete'
 
   post 'projects' => 'projects#create'
 
   post 'projects/fav' => 'projects#fav'
 
-  post 'fav_list' => 'projects#fav_list'
+  post 'fav_remove' => 'projects#fav_remove'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
