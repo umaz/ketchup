@@ -31,8 +31,8 @@ header{
 }
 
 .fadein {
-  animation: fadein 3s;
-  -webkit-animation: fadein 3s;
+  animation: fadein 5s;
+  -webkit-animation: fadein 5s;
 }
 
 @keyframes fadein {
