@@ -1,0 +1,19 @@
+<h1>お気に入り</h1>
+<table class="table table-striped">
+  <tr>
+    <th>お気に入り一覧</th>
+  </tr>
+  <tr>
+    <% @lists.each do |key, val| %>
+    <td>
+      <%= link_to detail_path(key) do %>
+        <%= val %>
+      <% end %>
+    </td>
+    <td>
+      <%= button_to "お気に入り解除", {:action => "fav_remove", :data => key}, :class => "btn btn-danger" %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+<%= link_to 'トップ', projects_index_path, :class => "btn btn-success" %>
