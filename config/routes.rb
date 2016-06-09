@@ -19,8 +19,9 @@ Rails.application.routes.draw do
 
   post 'projects/fav' => 'projects#fav'
 
-  post 'fav_remove' => 'projects#fav_remove'
+  post 'fav_remove_in_detail' => 'projects#fav_remove_in_detail'
 
+  post 'fav_remove_in_list' => 'projects#fav_remove_in_list'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

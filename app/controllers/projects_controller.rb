@@ -9,6 +9,7 @@ class ProjectsController < ApplicationController
 
   def detail
     @project = Project.find_by(id: params[:id])
+    fav_list
   end
 
   def fav
@@ -20,7 +21,17 @@ class ProjectsController < ApplicationController
     end
     key[@project.id] = @project.name
     cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
+    redirect_to detail_path(params[:data]), notice: "お気に入り登録しました"
+  end
+
+  def fav_remove_in_detail
+    fav_remove
     redirect_to detail_path(params[:data])
+  end
+
+  def fav_remove_in_list
+    fav_remove
+    redirect_to projects_fav_list_path
   end
 
   def fav_list
@@ -40,7 +51,6 @@ class ProjectsController < ApplicationController
     key = JSON.parse(cookies[:fav])
     key.delete(params[:data])
     cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
-    redirect_to projects_fav_list_path
   end
 
   def new

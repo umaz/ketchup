@@ -2,6 +2,7 @@
 <table class="table table-striped">
   <tr>
     <th>お気に入り一覧</th>
+    <th></th>
   </tr>
   <tr>
     <% @lists.each do |key, val| %>
@@ -11,7 +12,7 @@
       <% end %>
     </td>
     <td>
-      <%= button_to "お気に入り解除", {:action => "fav_remove", :data => key}, :class => "btn btn-danger" %>
+      <%= button_to "お気に入り解除", {:action => "fav_remove_in_list", :data => key}, :class => "btn btn-danger" %>
     </td>
   </tr>
   <% end %>
