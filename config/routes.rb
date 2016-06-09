@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/' => 'projects#index'
+
   get 'projects/index'
 
   get 'projects/detail' => 'projects#list'
