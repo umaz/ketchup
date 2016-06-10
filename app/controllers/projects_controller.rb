@@ -29,8 +29,6 @@ class ProjectsController < ApplicationController
 
   def fav_remove_in_detail
     fav_remove
-    count = Favorite.find(params[:data]).count
-    Favorite.update(params[:data], :count => count - 1)
     redirect_to detail_path(params[:data])
   end
 
@@ -53,6 +51,8 @@ class ProjectsController < ApplicationController
   end
 
   def fav_remove
+    count = Favorite.find(params[:data]).count
+    Favorite.update(params[:data], :count => count - 1)
     key = JSON.parse(cookies[:fav])
     key.delete(params[:data])
     cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
@@ -69,6 +69,6 @@ class ProjectsController < ApplicationController
       :name, :group, :about, :kind
     )
     @project = Project.create(new_project)
-    redirect_to '/projects/list'
+    redirect_to '/projects/detail'
   end
 end
