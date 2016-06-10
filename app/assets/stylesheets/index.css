@@ -87,6 +87,7 @@ header{
   from { opacity: 1; }
   to   { opacity: 0; }
 }
+
 .input-group {
   width: 50%;
   margin: 0 25% 0 25%;

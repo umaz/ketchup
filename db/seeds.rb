@@ -10,3 +10,7 @@ require "csv"
 CSV.foreach('db/projects.csv') do |row|
   Project.create(:name => row[0], :group => row[1], :about => row[2], :kind => row[3])
 end
+
+CSV.foreach('db/projects.csv') do |row|
+  Favorite.create(:count => row[4])
+end

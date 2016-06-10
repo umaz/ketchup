@@ -8,12 +8,13 @@ class ProjectsController < ApplicationController
   end
 
   def detail
-    @project = Project.find_by(id: params[:id])
+    @project = Project.find(params[:id])
     fav_list
+    @favorite = Favorite.find(params[:id])
   end
 
   def fav
-    @project = Project.find_by(id: params[:data])
+    @project = Project.find(params[:data])
     if cookies[:fav] == nil
       key = Hash.new
     else
@@ -21,11 +22,15 @@ class ProjectsController < ApplicationController
     end
     key[@project.id] = @project.name
     cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
-    redirect_to detail_path(params[:data]), notice: "お気に入り登録しました"
+    count = Favorite.find(params[:data]).count
+    Favorite.update(params[:data], :count => count + 1)
+    redirect_to detail_path(params[:data])
   end
 
   def fav_remove_in_detail
     fav_remove
+    count = Favorite.find(params[:data]).count
+    Favorite.update(params[:data], :count => count - 1)
     redirect_to detail_path(params[:data])
   end
 
