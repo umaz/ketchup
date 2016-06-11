@@ -3,13 +3,12 @@
 <p><%= @project.about %></p>
 <div class="center">
   <% if @lists.include?(@project.id.to_s) %>
-    <%= button_to "<i class='glyphicon glyphicon-star'></i>",
-{:action => "fav_remove_in_detail", :data => @project.id}, :remote => false, :class => "btn btn-danger" %>
+    <%= button_to "お気に入り解除", {:action => "fav_remove_in_detail", :data => @project.id}, :class => "btn btn-danger" %>
   <% else %>
-  <%= button_to "<i class='glyphicon glyphicon-star'></i>",
-{:action => "fav", :data => @project.id}, :remote => false, :class => "btn btn-warning" %>
+    <%= button_to "お気に入り登録", {:action => "fav_detail", :data => @project.id}, :class => "btn btn-warning" %>
   <% end %>
-    <%= @favorite.count %>
+  <i class='glyphicon glyphicon-star'></i>
+  <%= @favorite.count %>
 </div>
 <%= link_to '一覧', projects_detail_path, :class => "btn btn-primary" %>
 <%= link_to 'トップ', projects_index_path, :class => "btn btn-success" %>

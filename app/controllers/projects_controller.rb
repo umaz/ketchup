@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
 
   def list
     @projects = Project.all
+    fav_list
     @favorites = Favorite.all
   end
 
@@ -12,6 +13,16 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     fav_list
     @favorite = Favorite.find(params[:id])
+  end
+
+  def fav_detail
+    fav
+    redirect_to detail_path(params[:data])
+  end
+
+  def fav_all
+    fav
+    redirect_to projects_detail_path
   end
 
   def fav
@@ -25,7 +36,6 @@ class ProjectsController < ApplicationController
     cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
     count = Favorite.find(params[:data]).count
     Favorite.update(params[:data], :count => count + 1)
-    redirect_to detail_path(params[:data])
   end
 
   def fav_remove_in_detail
@@ -33,9 +43,14 @@ class ProjectsController < ApplicationController
     redirect_to detail_path(params[:data])
   end
 
-  def fav_remove_in_list
+  def fav_remove_in_fav_list
     fav_remove
     redirect_to projects_fav_list_path
+  end
+
+  def fav_remove_in_list
+    fav_remove
+    redirect_to projects_detail_path
   end
 
   def fav_list
