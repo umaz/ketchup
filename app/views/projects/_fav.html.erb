@@ -1,0 +1,16 @@
+<tr>
+  <th>お気に入り一覧</th>
+  <th></th>
+</tr>
+<% @lists.each do |key, val| %>
+<tr>
+  <td>
+    <%= link_to detail_path(key) do %>
+      <%= val %>
+    <% end %>
+  </td>
+  <td>
+    <%= button_to "お気に入り解除", {:action => "fav_remove_in_fav_list", :data => key}, :remote => true, :class => "btn btn-danger" %>
+  </td>
+</tr>
+<% end %>
