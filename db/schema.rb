@@ -14,9 +14,9 @@
 ActiveRecord::Schema.define(version: 20160610040119) do
 
   create_table "favorites", force: :cascade do |t|
-    t.integer  "count"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "count",      default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "projects", force: :cascade do |t|

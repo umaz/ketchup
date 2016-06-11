@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
 
   def list
     @projects = Project.all
+    @favorites = Favorite.all
   end
 
   def detail
@@ -69,6 +70,7 @@ class ProjectsController < ApplicationController
       :name, :group, :about, :kind
     )
     @project = Project.create(new_project)
+    @favorite = Favorite.create(:count => 0)
     redirect_to '/projects/detail'
   end
 end

@@ -5,6 +5,7 @@
     <th>企画名</th>
     <th>企画団体名</th>
     <th>企画種類</th>
+    <th></th>
   </tr>
   <% @projects.each do |project| %>
   <tr>
@@ -12,6 +13,7 @@
     <td><%= project.name %></td>
     <td><%= project.group %></td>
     <td><%= project.kind %></td>
+    <td><i class='glyphicon glyphicon-star'></i><%= @favorites[project.id - 1].count%></td>
   </tr>
   <% end %>
 </table>
