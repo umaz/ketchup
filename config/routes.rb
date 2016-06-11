@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   post 'fav_remove_in_list' => 'projects#fav_remove_in_list'
 
   post 'fav_remove_in_fav_list' => 'projects#fav_remove_in_fav_list'
-  
+
   post 'fav_detail' => 'projects#fav_detail'
 
   post 'fav_all' => 'projects#fav_all'
