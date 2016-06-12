@@ -84,8 +84,30 @@ class ProjectsController < ApplicationController
     new_project = params.require(:project).permit(
       :name, :group, :about, :kind
     )
-    @project = Project.create(new_project)
-    @favorite = Favorite.create(:count => 0)
+    Entry.create(new_project)
+      redirect_to '/projects/detail'
+  end
+
+  def admin
+    @entry = Entry.all
+  end
+
+  def admin_detail
+    @entry = Entry.find(params[:id])
+  end
+
+  def confirm
+    new_project = params.require(:data).permit(
+      :name, :group, :about, :kind
+    )
+    Project.create(new_project)
+    Favorite.create(:count => 0)
+    Entry.destroy(params[:data][:id])
     redirect_to '/projects/detail'
+  end
+
+  def reject
+    Entry.destroy(params[:data])
+    redirect_to '/projects/admin'
   end
 end

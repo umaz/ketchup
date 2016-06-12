@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610040119) do
+ActiveRecord::Schema.define(version: 20160612122442) do
+
+  create_table "entries", force: :cascade do |t|
+    t.string   "name"
+    t.string   "group"
+    t.text     "about"
+    t.string   "kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "favorites", force: :cascade do |t|
     t.integer  "count",      default: 0, null: false
