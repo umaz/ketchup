@@ -52,11 +52,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def fav_delete
-    cookies.delete(:fav)
-    redirect_to projects_index_path
-  end
-
   def fav_remove
     count = Favorite.find(params[:data]).count
     Favorite.update(params[:data], :count => count - 1)
