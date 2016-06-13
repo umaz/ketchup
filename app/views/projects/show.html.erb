@@ -1,3 +1,9 @@
+<header>
+  <div class="title">
+  <p>筑波大学用語辞典</p>
+</div>
+</header>
+
 <h1><%= @project.id %>: <%= @project.name %></h1>
 <h2><%= @project.group %></h2>
 <p><%= @project.about %></p>
@@ -12,3 +18,5 @@
 </div>
 <%= link_to '一覧', projects_path, :class => "btn btn-primary" %>
 <%= link_to 'トップ', index_path, :class => "btn btn-success" %>
+
+<%= stylesheet_link_tag "detail", :media=> "all" %>
