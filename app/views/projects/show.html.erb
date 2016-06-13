@@ -6,7 +6,7 @@
 
 <h1><%= @project.name %></h1>
 <h2><%= @project.about %></h2>
-<p><%= @project.detail %></p>
+<p><%= simple_format(@project.detail.gsub!(/\\n/, "\n")) %></p>
 <p><%= @project.kind %></p>
 <div id="fav_detail" class="center">
   <% if @lists.include?(@project.id.to_s) %>
