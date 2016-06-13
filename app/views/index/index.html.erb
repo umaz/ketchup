@@ -18,16 +18,17 @@
   <div class="input-group">
     <input type="text" class="form-control">
     <span class="input-group-btn">
-      <%=link_to projects_path, :class=> "btn btn-primary" do %>
+      <%=link_to projects_path, :class=> "btn btn-primary btn-lg" do %>
         <i class='glyphicon glyphicon-search'></i>検索
       <% end %>
     </span>
   </div>
 </div>
-<div class="center">
+<div class="center fav-new">
   <%= link_to "お気に入り一覧", index_fav_list_path, :class => "btn btn-warning" %>
+  <%= link_to '新規登録', new_project_path, :class => "btn btn-info" %>
 </div>
-<%= link_to '新規登録', new_project_path %>
+
 
 <script>
 function new_project() {

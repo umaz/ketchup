@@ -11,6 +11,12 @@ class ProjectsController < ApplicationController
     @favorite = Favorite.find(params[:id])
   end
 
+  def detail
+    @project = Project.find(params[:id])
+    fav_list
+    @favorite = Favorite.find(params[:id])
+  end
+
   def fav_detail
     fav
     redirect_to project_path(params[:data])
