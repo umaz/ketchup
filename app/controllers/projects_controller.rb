@@ -1,15 +1,11 @@
 class ProjectsController < ApplicationController
   def index
-    @project = Project.all.sample
-  end
-
-  def list
     @projects = Project.all
     fav_list
     @favorites = Favorite.all
   end
 
-  def detail
+  def show
     @project = Project.find(params[:id])
     fav_list
     @favorite = Favorite.find(params[:id])
@@ -17,12 +13,12 @@ class ProjectsController < ApplicationController
 
   def fav_detail
     fav
-    redirect_to detail_path(params[:data])
+    redirect_to project_path(params[:data])
   end
 
   def fav_all
     fav
-    redirect_to projects_detail_path
+    redirect_to projects_path
   end
 
   def fav
@@ -40,7 +36,7 @@ class ProjectsController < ApplicationController
 
   def fav_remove_in_detail
     fav_remove
-    redirect_to detail_path(params[:data])
+    redirect_to project_path(params[:data])
   end
 
   def fav_remove_in_fav_list
@@ -50,7 +46,7 @@ class ProjectsController < ApplicationController
 
   def fav_remove_in_list
     fav_remove
-    redirect_to projects_detail_path
+    redirect_to projects_path
   end
 
   def fav_list

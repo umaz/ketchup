@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  resources :projects
+
+  get 'index' => 'index#index'
+
+  get 'index/fav_list'
+
+  get 'index/fav_delete'
+
   get 'admin/index'
 
   get 'admin/list'
@@ -13,15 +21,7 @@ Rails.application.routes.draw do
 
   get 'admin/detail/:id/edit' => 'admin#edit', as: 'edit'
 
-  get '/' => 'projects#index'
-
-  get 'projects' => 'projects#index'
-
-  get 'projects/index'
-
-  get 'projects/list'
-
-  get 'projects/new'
+  get '/' => 'index#index'
 
   get 'projects/search'
 
@@ -39,7 +39,7 @@ Rails.application.routes.draw do
 
   post 'fav_remove_in_list' => 'projects#fav_remove_in_list'
 
-  post 'fav_remove_in_fav_list' => 'projects#fav_remove_in_fav_list'
+  post 'fav_remove_in_fav_list' => 'index#fav_remove_in_fav_list'
 
   post 'fav_detail' => 'projects#fav_detail'
 

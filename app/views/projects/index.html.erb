@@ -1,45 +1,27 @@
-<%= favicon_link_tag('favicon.ico') %>
-
-<header>
-  <div class="title">
-  <p>筑波大学用語辞典</p>
-  <h1><%= image_tag 'favicon.ico' %>&nbsp;KeTchUp</h1>
-  <h2>明日のために調べよう</h2>
-</div>
-</header>
-<div id="word_area" class="center">
-  <div id="word" class="fadein">
-    <%= link_to detail_path(@project.id) do %>
-      <%= @project.id %>: <%= @project.name %>
-    <% end %>
-  </div>
-</div>
-<div class="form-group">
-  <div class="input-group">
-    <input type="text" class="form-control">
-    <span class="input-group-btn">
-      <%=link_to projects_list_path, :class=> "btn btn-primary" do %>
-        <i class='glyphicon glyphicon-search'></i>検索
-      <% end %>
-    </span>
-  </div>
-</div>
-<div class="center">
-  <%= link_to "お気に入り一覧", projects_fav_list_path, :class => "btn btn-warning" %>
-</div>
-<%= link_to '新規登録', projects_new_path %>
-
-<script>
-function new_project() {
-  $.ajax({
-    url: 'index',
-    type: 'GET',
-    dataType: 'script'
-    });
-  setTimeout(execute,8500);
-  }
-
-  setInterval(new_project, 10000);
-</script>
-<%= stylesheet_link_tag "index", :media => "all" %>
-<%= javascript_include_tag "fade" %>
+<h1>一覧</h1>
+<table id="list_fav" class="table table-striped">
+  <tr>
+    <th>企画番号</th>
+    <th>企画名</th>
+    <th>企画団体名</th>
+    <th>企画種類</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% @projects.each do |project| %>
+  <tr>
+    <td><%= link_to project.id, project_path(project.id), :class => "btn btn-primary" %></td>
+    <td><%= project.name %></td>
+    <td><%= project.group %></td>
+    <td><%= project.kind %></td>
+    <td><% if @lists.include?(project.id.to_s) %>
+          <%= button_to "お気に入り解除", {:action => "fav_remove_in_list", :data => project.id}, :remote => true, :class => "btn btn-danger" %>
+        <% else %>
+          <%= button_to "お気に入り登録", {:action => "fav_all", :data => project.id}, :remote => true, :class => "btn btn-warning" %>
+        <% end %>
+        <i class='glyphicon glyphicon-star'></i><%= @favorites[project.id - 1].count%>
+    </td>
+  </tr>
+  <% end %>
+</table>
+<%= link_to 'トップ', index_path %>
