@@ -4,6 +4,7 @@
 Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( index.css )
 Rails.application.config.assets.precompile += %w( list.css )
+Rails.application.config.assets.precompile += %w( new.css )
 Rails.application.config.assets.precompile += %w( fade.js )
 Rails.application.config.assets.precompile += %w( fav.js )
 # Add additional assets to the asset load path
