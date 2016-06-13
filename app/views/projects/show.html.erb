@@ -4,9 +4,10 @@
 </div>
 </header>
 
-<h1><%= @project.id %>: <%= @project.name %></h1>
-<h2><%= @project.group %></h2>
-<p><%= @project.about %></p>
+<h1><%= @project.name %></h1>
+<h2><%= @project.about %></h2>
+<p><%= @project.detail %></p>
+<p><%= @project.kind %></p>
 <div id="fav_detail" class="center">
   <% if @lists.include?(@project.id.to_s) %>
     <%= button_to "お気に入り解除", {:action => "fav_remove_in_detail", :data => @project.id}, :remote => true, :class => "btn btn-danger" %>
