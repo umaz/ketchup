@@ -1,12 +1,13 @@
 class AdminController < ApplicationController
   def index
   end
-  
+
   def list
     @projects = Project.all
   end
 
   def detail
+    @project = Project.find(params[:id])
   end
 
   def entry
@@ -27,11 +28,11 @@ class AdminController < ApplicationController
     Project.create(new_project)
     Favorite.create(:count => 0)
     Entry.destroy(params[:data][:id])
-    redirect_to '/projects/detail'
+    redirect_to admin_entry_path
   end
 
   def reject
     Entry.destroy(params[:data])
-    redirect_to '/projects/admin'
+    redirect_to admin_entry_path
   end
 end

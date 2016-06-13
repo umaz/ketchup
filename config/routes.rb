@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get 'admin/list'
 
-  get 'admin/detail'
+  get 'admin/detail/:id' => 'admin#detail', as: 'detail_admin'
 
   get 'admin/entry'
 

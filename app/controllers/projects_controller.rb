@@ -87,8 +87,4 @@ class ProjectsController < ApplicationController
     Entry.create(new_project)
       redirect_to '/projects/detail'
   end
-
-  def admin_detail
-    @entry = Entry.find(params[:id])
-  end
 end

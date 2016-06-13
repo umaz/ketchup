@@ -1,14 +1,5 @@
 <h1><%= @project.id %>: <%= @project.name %></h1>
 <h2><%= @project.group %></h2>
 <p><%= @project.about %></p>
-<div id="fav_detail" class="center">
-  <% if @lists.include?(@project.id.to_s) %>
-    <%= button_to "お気に入り解除", {:action => "fav_remove_in_detail", :data => @project.id}, :remote => true, :class => "btn btn-danger" %>
-  <% else %>
-    <%= button_to "お気に入り登録", {:action => "fav_detail", :data => @project.id}, :remote => true, :class => "btn btn-warning" %>
-  <% end %>
-  <i class='glyphicon glyphicon-star'></i>
-  <%= @favorite.count %>
-</div>
-<%= link_to '一覧', projects_detail_path, :class => "btn btn-primary" %>
-<%= link_to 'トップ', projects_index_path, :class => "btn btn-success" %>
+<%= link_to '一覧', admin_list_path, :class => "btn btn-primary" %>
+<%= link_to 'トップ', admin_index_path, :class => "btn btn-success" %>
