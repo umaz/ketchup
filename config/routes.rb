@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'admin/list'
+
+  get 'admin/detail'
+
+  get 'admin/entry'
+
+  get 'admin/reqest'
+
   get '/' => 'projects#index'
 
   get 'projects' => 'projects#index'
