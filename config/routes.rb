@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   get 'projects/index'
 
-  get 'projects/detail' => 'projects#list'
+  get 'projects/list'
 
   get 'projects/new'
 
