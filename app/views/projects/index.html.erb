@@ -3,7 +3,7 @@
   <p>筑波大学用語辞典</p>
 </div>
 </header>
-
+<%= link_to 'トップ', index_path %>
 <h1><%= image_tag 'favicon.ico' , :width => '45', :height => '45'%>&nbsp;一覧</h1>
 <table id="list_fav" class="table table-striped">
   <tr>
@@ -30,5 +30,5 @@
   </tr>
   <% end %>
 </table>
-<%= link_to 'トップ', index_path %>
-<%= stylesheet_link_tag "index", :media => "all" %>
+
+<%= stylesheet_link_tag "list", :media => "all" %>
