@@ -1,2 +1,24 @@
+<<<<<<< HEAD
 <h1>新規登録</h1>
 <%= render 'form' %>
+=======
+<header>
+  <div class="title">
+  <p>筑波大学用語辞典</p>
+</div>
+</header>
+
+<h1><%= image_tag 'favicon.ico' , :width => '45', :height => '45'%>&nbsp;新規登録</h1>
+<%= form_for Project.new do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :group %>
+  <%= f.text_field :group %>
+  <%= f.label :about %>
+  <%= f.text_area :about %>
+  <%= f.label :kind %>
+  <%= f.select :kind, {"主食" => "主食", "軽食" => "軽食", "スイーツ" => "スイーツ", "ドリンク" => "ドリンク", "販売" => "販売", "展示" => "展示", "参加型" => "参加型", "ステージ" => "ステージ", "パフォーマンス" => "パフォーマンス", "その他" => "その他"} %>
+  <%= f.submit %>
+<% end %>
+<%= stylesheet_link_tag "new", :media => "all" %>
+>>>>>>> page-design

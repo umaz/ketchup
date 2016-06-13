@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1>一覧</h1>
 <table id="list_fav" class="table table-striped">
   <tr>
@@ -25,3 +26,50 @@
   <% end %>
 </table>
 <%= link_to 'トップ', index_path %>
+=======
+<%= favicon_link_tag('favicon.ico') %>
+
+<header>
+  <div class="title">
+  <p>筑波大学用語辞典</p>
+  <h1><%= image_tag 'favicon.ico' %>&nbsp;KeTchUp</h1>
+  <h2>明日のために調べよう</h2>
+</div>
+</header>
+<div id="word_area" class="center">
+  <div id="word" class="fadein">
+    <%= link_to detail_path(@project.id) do %>
+      <%= @project.id %>: <%= @project.name %>
+    <% end %>
+  </div>
+</div>
+<div class="form-group">
+  <div class="input-group">
+    <input type="text" class="form-control">
+    <span class="input-group-btn">
+      <%=link_to projects_detail_path, :class=> "btn btn-primary btn-lg" do %>
+        <i class='glyphicon glyphicon-search'></i>検索
+      <% end %>
+    </span>
+  </div>
+</div>
+<div class="center">
+  <%= link_to "お気に入り一覧", projects_fav_list_path, :class => "btn btn-warning" %>
+  <%= link_to "お気に入り削除", projects_fav_delete_path, :class => "btn btn-danger" %>
+</div>
+
+<script>
+function new_project() {
+  $.ajax({
+    url: 'index',
+    type: 'GET',
+    dataType: 'script'
+    });
+  setTimeout(execute,8500);
+  }
+
+  setInterval(new_project, 10000);
+</script>
+<%= stylesheet_link_tag "index", :media => "all" %>
+<%= javascript_include_tag "fade" %>
+>>>>>>> page-design
