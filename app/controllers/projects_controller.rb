@@ -39,11 +39,6 @@ class ProjectsController < ApplicationController
     redirect_to project_path(params[:data])
   end
 
-  def fav_remove_in_fav_list
-    fav_remove
-    redirect_to projects_fav_list_path
-  end
-
   def fav_remove_in_list
     fav_remove
     redirect_to projects_path
@@ -55,11 +50,6 @@ class ProjectsController < ApplicationController
     else
       @lists = JSON.parse(cookies[:fav])
     end
-  end
-
-  def fav_delete
-    cookies.delete(:fav)
-    redirect_to projects_index_path
   end
 
   def fav_remove

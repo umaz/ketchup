@@ -7,7 +7,7 @@
   <% @lists.each do |key, val| %>
   <tr>
     <td>
-      <%= link_to detail_path(key) do %>
+      <%= link_to project_path(key) do %>
         <%= val %>
       <% end %>
     </td>
@@ -17,4 +17,4 @@
   </tr>
   <% end %>
 </table>
-<%= link_to 'トップ', projects_index_path, :class => "btn btn-success" %>
+<%= link_to 'トップ', index_path, :class => "btn btn-success" %>
