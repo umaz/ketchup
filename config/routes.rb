@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   get 'index/fav_delete'
 
+#  get 'admin' => 'admin#index'
+
   get 'admin/index'
 
   get 'admin/list'
