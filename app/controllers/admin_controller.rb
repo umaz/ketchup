@@ -1,4 +1,6 @@
 class AdminController < ApplicationController
+  before_filter :auth
+
   def index
   end
 
@@ -53,5 +55,15 @@ class AdminController < ApplicationController
   private
   def project_params
     params[:data].permit(:name, :group, :about, :kind)
+  end
+  def auth
+    authenticate_or_request_with_http_digest('') do | name |
+      u = Admin.find_by_name(name)
+      if u
+        u.password
+      else
+        nil
+      end
+    end
   end
 end

@@ -23,4 +23,5 @@ class IndexController < ApplicationController
     key.delete(params[:data])
     cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
   end
+
 end

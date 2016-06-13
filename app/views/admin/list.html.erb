@@ -1,7 +1,3 @@
-<<<<<<< HEAD:app/views/admin/list.html.erb
-<h1>一覧</h1>
-<table id="list_fav" class="table table-striped">
-=======
 <header>
   <div class="title">
   <p>筑波大学用語辞典</p>
@@ -10,7 +6,6 @@
 
 <h1><%= image_tag 'favicon.ico' , :width => '45', :height => '45'%>&nbsp;検索結果一覧</h1>
 <table class="table table-striped">
->>>>>>> page-design:app/views/projects/list.html.erb
   <tr>
     <th>企画番号</th>
     <th>企画名</th>
@@ -19,22 +14,12 @@
   </tr>
   <% @projects.each do |project| %>
   <tr>
-<<<<<<< HEAD:app/views/admin/list.html.erb
     <td><%= link_to project.id, detail_admin_path(project.id), :class => "btn btn-primary" %></td>
-=======
-    <td><%= link_to project.id, detail_path(project.id), :class => "btn btn-info" %></td>
->>>>>>> page-design:app/views/projects/list.html.erb
     <td><%= project.name %></td>
     <td><%= project.group %></td>
     <td><%= project.kind %></td>
   </tr>
   <% end %>
 </table>
-<<<<<<< HEAD:app/views/admin/list.html.erb
-<%= link_to 'トップ', projects_index_path %>
-=======
-<%= link_to '新規登録', 'new' %>
-<%= link_to 'トップ', 'index' %>
-
+<%= link_to 'トップ', admin_index_path %>
 <%= stylesheet_link_tag "list", :media=> "all" %>
->>>>>>> page-design:app/views/projects/list.html.erb
