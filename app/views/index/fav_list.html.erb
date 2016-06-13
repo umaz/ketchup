@@ -1,4 +1,11 @@
-<h1>お気に入り</h1>
+<header>
+  <div class="title">
+  <p>筑波大学用語辞典</p>
+</div>
+</header>
+
+<h1><%= image_tag 'favicon.ico' , :width => '45', :height => '45'%>&nbsp;お気に入り</h1>
+<%= link_to 'トップ', index_path, :class => "btn btn-success" %>
 <table id="fav_list" class="table table-striped">
   <tr>
     <th>お気に入り一覧</th>
@@ -6,15 +13,16 @@
   </tr>
   <% @lists.each do |key, val| %>
   <tr>
-    <td>
+    <td class="fav_all">
       <%= link_to project_path(key) do %>
         <%= val %>
       <% end %>
     </td>
     <td>
-      <%= button_to "お気に入り解除", {:action => "fav_remove_in_fav_list", :data => key}, :remote => true, :class => "btn btn-danger" %>
+      <%= button_to "お気に入り解除", {:action => "fav_remove_in_fav_list", :data => key}, :remote => true, :class => "btn btn-danger fav-btn" %>
     </td>
   </tr>
   <% end %>
 </table>
-<%= link_to 'トップ', index_path, :class => "btn btn-success" %>
+
+<%= stylesheet_link_tag "list", :media => "all" %>
