@@ -31,7 +31,7 @@ header{
 }
 
 #word_area{
-  height:250px;
+  height:200px;
   margin-top: 50px;
 }
 
@@ -56,6 +56,10 @@ header{
 
 .center{
   text-align: center;
+}
+
+.fav-new {
+  margin-top: 50px;
 }
 
 .fadein {
@@ -93,5 +97,5 @@ header{
   margin: 0 25% 0 25%;
 }
 .form-control {
-  height: 45px;
+  height: 46px;
 }
