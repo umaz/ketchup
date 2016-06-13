@@ -75,16 +75,32 @@ class ProjectsController < ApplicationController
   end
 
   def new
+    @project = Entry.new
   end
 
   def search
   end
 
   def create
-    new_project = params.require(:project).permit(
-      :name, :group, :about, :kind
-    )
-    Entry.create(new_project)
-      redirect_to '/projects/detail'
+    @project = Entry.new(project_params)
+    if @project.save
+      redirect_to projects_list_path
+    else
+      render 'new'
+    end
+  end
+
+  def update
+    @project = Project.find(params[:id])
+    if @project.update(project_params)
+      redirect_to projects_path
+    else
+      render 'edit'
+    end
+  end
+
+  private
+  def project_params
+    params[:project].permit(:name, :group, :about, :kind)
   end
 end

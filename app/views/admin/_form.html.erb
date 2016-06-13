@@ -1,0 +1,11 @@
+<%= form_for @project do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :group %>
+  <%= f.text_field :group %>
+  <%= f.label :about %>
+  <%= f.text_area :about %>
+  <%= f.label :kind %>
+  <%= f.select :kind, {"主食" => "主食", "軽食" => "軽食", "スイーツ" => "スイーツ", "ドリンク" => "ドリンク", "販売" => "販売", "展示" => "展示", "参加型" => "参加型", "ステージ" => "ステージ", "パフォーマンス" => "パフォーマンス", "その他" => "その他"} %>
+  <%= f.submit %>
+<% end %>

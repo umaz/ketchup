@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   get 'admin/entry/:id' => 'admin#approval', as: 'admin'
 
+  get 'admin/detail/:id/edit' => 'admin#edit', as: 'edit'
+
   get '/' => 'projects#index'
 
   get 'projects' => 'projects#index'
