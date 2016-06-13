@@ -3,4 +3,4 @@
 <p><%= @entry.about %></p>
 <%= button_to "承認", {:action => "confirm", :data => {:id => @entry.id, :name => @entry.name, :group => @entry.group, :about => @entry.about, :kind => @entry.kind}}, :remote => false, :class => "btn btn-success" %>
 <%= button_to "非承認", {:action => "reject", :data => @entry.id}, :remote => false, :class => "btn btn-danger" %>
-<%= link_to 'トップ', projects_admin_path, :class => "btn btn-primary" %>
+<%= link_to 'トップ', admin_index_path, :class => "btn btn-primary" %>

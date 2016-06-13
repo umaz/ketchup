@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'admin/index'
+
   get 'admin/list'
 
   get 'admin/detail'
@@ -6,6 +8,8 @@ Rails.application.routes.draw do
   get 'admin/entry'
 
   get 'admin/reqest'
+
+  get 'admin/entry/:id' => 'admin#approval', as: 'admin'
 
   get '/' => 'projects#index'
 
@@ -25,10 +29,6 @@ Rails.application.routes.draw do
 
   get 'projects/fav_delete'
 
-  get 'projects/admin'
-
-  get 'projects/admin/:id' => 'projects#admin_detail', as: 'admin'
-
   post 'projects' => 'projects#create'
 
   post 'projects/fav' => 'projects#fav'
@@ -43,9 +43,9 @@ Rails.application.routes.draw do
 
   post 'fav_all' => 'projects#fav_all'
 
-  post 'confirm' => 'projects#confirm'
+  post 'confirm' => 'admin#confirm'
 
-  post 'reject' => 'projects#reject'
+  post 'reject' => 'admin#reject'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

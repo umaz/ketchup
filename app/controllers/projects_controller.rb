@@ -88,26 +88,7 @@ class ProjectsController < ApplicationController
       redirect_to '/projects/detail'
   end
 
-  def admin
-    @entry = Entry.all
-  end
-
   def admin_detail
     @entry = Entry.find(params[:id])
-  end
-
-  def confirm
-    new_project = params.require(:data).permit(
-      :name, :group, :about, :kind
-    )
-    Project.create(new_project)
-    Favorite.create(:count => 0)
-    Entry.destroy(params[:data][:id])
-    redirect_to '/projects/detail'
-  end
-
-  def reject
-    Entry.destroy(params[:data])
-    redirect_to '/projects/admin'
   end
 end
