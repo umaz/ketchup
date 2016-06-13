@@ -1,19 +1,22 @@
-<h1>一覧</h1>
+<header>
+  <div class="title">
+  <p>筑波大学用語辞典</p>
+</div>
+</header>
+<%= link_to 'トップ', index_path %>
+<h1><%= image_tag 'favicon.ico' , :width => '45', :height => '45'%>&nbsp;一覧</h1>
 <table id="list_fav" class="table table-striped">
   <tr>
-    <th>企画番号</th>
-    <th>企画名</th>
-    <th>企画団体名</th>
-    <th>企画種類</th>
-    <th></th>
+    <th>用語名</th>
+    <th>概要</th>
+    <th>カテゴリー</th>
     <th></th>
   </tr>
   <% @projects.each do |project| %>
   <tr>
-    <td><%= link_to project.id, project_path(project.id), :class => "btn btn-primary" %></td>
-    <td><%= project.name %></td>
-    <td><%= project.group %></td>
-    <td><%= project.kind %></td>
+    <td><%= link_to project.name, project_path(project.id) %></td>
+    <td><%= link_to project.about, project_path(project.id) %></td>
+    <td><%= link_to project.kind, project_path(project.id) %></td>
     <td><% if @lists.include?(project.id.to_s) %>
           <%= button_to "お気に入り解除", {:action => "fav_remove_in_list", :data => project.id}, :remote => true, :class => "btn btn-danger" %>
         <% else %>
@@ -24,4 +27,5 @@
   </tr>
   <% end %>
 </table>
-<%= link_to 'トップ', index_path %>
+
+<%= stylesheet_link_tag "list", :media => "all" %>
