@@ -36,7 +36,10 @@ h1 {
   font-size: 20px;
   text-align: center;
 }
-
+a.top, a:link.top, a:visited.top, a:hover.top, a:active.top{
+  color: rgb(238, 150, 57);
+  text-decoration: none;
+}
 #word_area{
   height:200px;
   margin-top: 50px;

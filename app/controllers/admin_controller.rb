@@ -12,7 +12,7 @@ class AdminController < ApplicationController
     @project = Project.find(params[:id])
   end
 
-  def entry
+  def entries
     @entry = Entry.all
   end
 
@@ -28,7 +28,7 @@ class AdminController < ApplicationController
     Favorite.create(:count => 0)
     if @project.save
       Entry.destroy(params[:data][:id])
-      redirect_to admin_entry_path
+      redirect_to admin_entries_path
     else
       render 'new'
     end
@@ -36,25 +36,21 @@ class AdminController < ApplicationController
 
   def reject
     Entry.destroy(params[:data])
-    redirect_to admin_entry_path
+    redirect_to admin_entries_path
   end
 
   def edit
     @project = Project.find(params[:id])
   end
 
-  def update
-    @project = Project.find(params[:id])
-    if @project.update(project_params)
-      redirect_to projects_path
-    else
-      render 'edit'
-    end
+  def destroy
+    Project.destroy(params[:data])
+    redirect_to admin_list_path
   end
 
   private
   def project_params
-    params[:data].permit(:name, :group, :about, :kind)
+    params[:data].permit(:name, :kana, :about, :detail, :kind)
   end
 =begin
   def auth

@@ -4,7 +4,9 @@
 </div>
 </header>
 
-<h1><%= image_tag 'favicon.ico' , :width => '45', :height => '45'%>&nbsp;お気に入り</h1>
+<h1><%= link_to index_path, :class => 'top' do %>
+      <%= image_tag 'favicon.ico' , :width => '45', :height => '45'%>&nbsp;お気に入り
+    <% end %></h1>
 <%= link_to 'トップ', index_path, :class => "btn btn-success" %>
 <table id="fav_list" class="table table-striped">
   <tr>

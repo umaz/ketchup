@@ -4,3 +4,7 @@ h1 {
   margin: 40px;
   vertical-align: middle;
 }
+a.top, a:link.top, a:visited.top, a:hover.top, a:active.top{
+  color: rgb(238, 150, 57);
+  text-decoration: none;
+}

@@ -1,0 +1,16 @@
+<h1>申請一覧</h1>
+<table id="list_fav" class="table table-striped">
+  <tr>
+    <th>用語名</th>
+    <th>概要</th>
+    <th>カテゴリー</th>
+  </tr>
+  <% @entry.each do |project| %>
+  <tr>
+    <td><%= link_to project.name, approval_path(project.id) %></td>
+    <td><%= link_to project.about, approval_path(project.id) %></td>
+    <td><%= link_to project.kind, approval_path(project.id) %></td>
+  </tr>
+  <% end %>
+</table>
+<%= link_to 'トップ', admin_index_path, :class => "btn btn-success" %>

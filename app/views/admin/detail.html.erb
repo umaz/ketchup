@@ -1,5 +1,8 @@
-<h1><%= @project.id %>: <%= @project.name %></h1>
-<h2><%= @project.group %></h2>
-<p><%= @project.about %></p>
+<h1><%= @project.name %></h1>
+<h2><%= @project.about %></h2>
+<p><%= simple_format(@project.detail.gsub(/\\n/, "\n")) %></p>
+<p><%= @project.kind %></p>
+<%= link_to '編集', edit_path, :class => "btn btn-warning" %>
+<%= button_to "削除", {:action => "destroy", :data => @project.id}, :remote => false, :class => "btn btn-danger" %>
 <%= link_to '一覧', admin_list_path, :class => "btn btn-primary" %>
 <%= link_to 'トップ', admin_index_path, :class => "btn btn-success" %>

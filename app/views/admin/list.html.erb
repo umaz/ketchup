@@ -7,17 +7,15 @@
 <h1><%= image_tag 'favicon.ico' , :width => '45', :height => '45'%>&nbsp;検索結果一覧</h1>
 <table class="table table-striped">
   <tr>
-    <th>企画番号</th>
-    <th>企画名</th>
-    <th>企画団体名</th>
-    <th>企画種類</th>
+    <th>用語名</th>
+    <th>概要</th>
+    <th>カテゴリー</th>
   </tr>
   <% @projects.each do |project| %>
   <tr>
-    <td><%= link_to project.id, detail_admin_path(project.id), :class => "btn btn-primary" %></td>
-    <td><%= project.name %></td>
-    <td><%= project.group %></td>
-    <td><%= project.kind %></td>
+    <td><%= link_to project.name, detail_admin_path(project.id) %></td>
+    <td><%= link_to project.about, detail_admin_path(project.id) %></td>
+    <td><%= link_to project.kind, detail_admin_path(project.id) %></td>
   </tr>
   <% end %>
 </table>
