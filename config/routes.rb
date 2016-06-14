@@ -5,8 +5,6 @@ Rails.application.routes.draw do
 
   get 'index/fav_list'
 
-  get 'index/fav_delete'
-
   get 'admin' => 'admin#index'
 
   get 'admin/index'
@@ -26,12 +24,6 @@ Rails.application.routes.draw do
   get '/' => 'index#index'
 
   get 'projects/search'
-
-  get 'projects/detail/:id' => 'projects#detail', as: 'detail'
-
-  get 'projects/fav_list'
-
-  get 'projects/fav_delete'
 
   post 'projects' => 'projects#create'
 

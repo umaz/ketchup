@@ -8,9 +8,5 @@
 require "csv"
 
 CSV.foreach('db/data.csv') do |row|
-  Project.create(:name => row[0], :kana => row[1], :about => row[2], :detail => row[3], :kind => row[4])
-end
-
-CSV.foreach('db/data.csv') do |row|
-  Favorite.create(:count => row[5])
+  Project.create(:name => row[0], :kana => row[1], :about => row[2], :detail => row[3], :kind => row[4], :count => row[5])
 end

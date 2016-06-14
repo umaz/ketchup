@@ -15,7 +15,7 @@
     <%= button_to "お気に入り登録", {:action => "fav_detail", :data => @project.id}, :remote => true, :class => "btn btn-warning" %>
   <% end %>
   <i class='glyphicon glyphicon-star'></i>
-  <%= @favorite.count %>
+  <%= @project.count %>
 </div>
 <%= link_to '一覧', projects_path, :class => "btn btn-primary" %>
 <%= link_to 'トップ', index_path, :class => "btn btn-success" %>

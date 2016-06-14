@@ -5,7 +5,7 @@
 <% @lists.each do |key, val| %>
 <tr>
   <td>
-    <%= link_to detail_path(key) do %>
+    <%= link_to project_path(key) do %>
       <%= val %>
     <% end %>
   </td>

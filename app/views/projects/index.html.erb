@@ -25,7 +25,7 @@
         <% else %>
           <%= button_to "お気に入り登録", {:action => "fav_all", :data => project.id}, :remote => true, :class => "btn btn-warning" %>
         <% end %>
-        <i class='glyphicon glyphicon-star'></i><%= @favorites[project.id - 1].count %>
+        <i class='glyphicon glyphicon-star'></i><%= project.count %>
     </td>
   </tr>
   <% end %>

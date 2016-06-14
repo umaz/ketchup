@@ -17,11 +17,11 @@ class IndexController < ApplicationController
   end
 
   def fav_remove
-    count = Favorite.find(params[:data]).count
-    Favorite.update(params[:data], :count => count - 1)
+    @project = Project.find(params[:data])
+    count = @project.count
+    Project.update(@project.id, :count => count - 1)
     key = JSON.parse(cookies[:fav])
     key.delete(params[:data])
     cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
   end
-
 end
