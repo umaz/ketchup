@@ -1,5 +1,7 @@
 class IndexController < ApplicationController
   def index
+    @q = Project.search(params[:q])
+    @projects = @q.result
     @project = Project.all.sample
   end
 

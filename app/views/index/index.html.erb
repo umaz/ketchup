@@ -26,12 +26,20 @@
     </span>
   </div>
 </div>
-<%= form_tag('/projects', :method => 'get', class: "form-inline") do %>
-  <%= text_field_tag :keyword, '', size: '100%', class: "form-control", placeholder: "keyword" %>
-  <%= button_tag(type: "submit", class: "btn btn-default") do %>
-  Search <i class="fa fa-search"></i>
-  <% end %>
+
+<%= search_form_for @q do |f| %>
+<div class="form-group">
+  <div class="input-group">
+    <%= f.text_field :name_cont, :class => "form-control" %>
+    <span class="input-group-btn">
+      <%= f.submit :class=> "btn btn-primary btn-lg" do %>
+        <i class='glyphicon glyphicon-search'></i>検索
+      <% end %>
+    </span>
+  </div>
+</div>
 <% end %>
+
 <div class="center fav-new">
   <%= link_to "お気に入り一覧", index_fav_list_path, :class => "btn btn-warning" %>
   <%= link_to '新規登録', new_project_path, :class => "btn btn-info" %>
