@@ -3,19 +3,24 @@
   <p>筑波大学用語辞典</p>
 </div>
 </header>
-
 <h1><%= link_to index_path, :class => 'top' do %>
       <%= image_tag 'favicon.ico' , :width => '45', :height => '45'%>&nbsp;一覧
     <% end %></h1>
     <%= search_form_for @q do |f| %>
-  <div class="field">
-    <%= f.label :name_cont, "Name contains" %>
-    <%= f.text_field :name_cont %><br>
-  </div>
-  <div class="actions"><%= f.submit "Search" %></div>
-<% end %>
-<%= link_to 'トップ', index_path, :class => "btn btn-success" %>
+    <div class="form-group">
+      <div class="input-group">
+        <%= f.text_field :name, :class => "form-control" %>
+        <span class="input-group-btn">
+          <%= f.submit :class=> "btn btn-primary btn-lg" do %>
+            <i class='glyphicon glyphicon-search'></i>検索
+          <% end %>
+        </span>
+      </div>
+    </div>
+    <% end %>
+    <%= link_to 'トップ', index_path, :class => "btn btn-success" %>
 <%= page_entries_info @projects %>
+<%= paginate @projects %>
 <table id="list_fav" class="table table-striped">
   <tr>
     <th><%= sort_link @q, :name, '用語名' %></th>

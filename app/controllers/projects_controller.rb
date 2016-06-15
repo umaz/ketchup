@@ -1,6 +1,11 @@
 class ProjectsController < ApplicationController
   def index
-    @q = Project.search(params[:q])
+    if params.include?(:q)
+      conversion
+      @q = Project.search(:name_or_kana_or_about_or_detail_or_kind_cont_all => @search, :s => params[:q][:s])
+    else
+      @q = Project.search(params[:q])
+    end
     @projects = @q.result.page(params[:page]).per(100)
     fav_list
     @project = Project.all.sample
@@ -62,6 +67,14 @@ class ProjectsController < ApplicationController
       redirect_to admin_list_path
     else
       render 'edit'
+    end
+  end
+
+  def conversion
+    if params[:q].include?(:name)
+      @search = params[:q][:name].split(/\s/)
+    else
+      @search = nil
     end
   end
 
