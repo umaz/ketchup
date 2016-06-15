@@ -15,6 +15,7 @@
   <div class="actions"><%= f.submit "Search" %></div>
 <% end %>
 <%= link_to 'トップ', index_path, :class => "btn btn-success" %>
+<%= page_entries_info @projects %>
 <table id="list_fav" class="table table-striped">
   <tr>
     <th><%= sort_link @q, :name, '用語名' %></th>
@@ -37,5 +38,5 @@
   </tr>
   <% end %>
 </table>
-
+<%= paginate @projects %>
 <%= stylesheet_link_tag "list", :media => "all" %>
