@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   def index
     @q = Project.search(params[:q])
-    @projects = @q.result
+    @projects = @q.result.page(params[:page]).per(100)
     fav_list
   end
 
