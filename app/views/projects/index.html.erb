@@ -4,15 +4,15 @@
 </div>
 </header>
 <h1><%= link_to index_path, :class => 'top' do %>
-      <%= image_tag 'favicon.ico' , :width => '45', :height => '45'%>&nbsp;一覧
+      <%= image_tag 'favicon.ico' , :width => '45', :height => '45'%>&nbsp;検索結果一覧
     <% end %></h1>
     <%= search_form_for @q do |f| %>
     <div class="form-group">
       <div class="input-group">
-        <%= f.text_field :name, :class => "form-control" %>
+        <%= f.text_field :name, :class => "form-control", :value => @search %>
         <span class="input-group-btn">
-          <%= f.submit :class=> "btn btn-primary btn-lg" do %>
-            <i class='glyphicon glyphicon-search'></i>検索
+          <%= button_tag( class: "btn btn-primary") do %>
+            <%= content_tag :span, "検索", class: "glyphicon glyphicon-search" %>
           <% end %>
         </span>
       </div>
