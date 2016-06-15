@@ -1,5 +1,6 @@
 class AdminController < ApplicationController
 #  before_filter :auth
+before_action :set_project, only: [:detail, :edit]
 
   def index
   end
@@ -9,7 +10,6 @@ class AdminController < ApplicationController
   end
 
   def detail
-    @project = Project.find(params[:id])
   end
 
   def entries
@@ -25,7 +25,6 @@ class AdminController < ApplicationController
 
   def confirm
     @project = Project.new(project_params)
-    Favorite.create(:count => 0)
     if @project.save
       Entry.destroy(params[:data][:id])
       redirect_to admin_entries_path
@@ -40,7 +39,6 @@ class AdminController < ApplicationController
   end
 
   def edit
-    @project = Project.find(params[:id])
   end
 
   def destroy
@@ -49,6 +47,10 @@ class AdminController < ApplicationController
   end
 
   private
+  def set_project
+  @project = Project.find(params[:id])
+  end
+
   def project_params
     params[:data].permit(:name, :kana, :about, :detail, :kind)
   end

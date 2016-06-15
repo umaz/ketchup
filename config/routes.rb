@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   get 'projects/search'
 
-  post 'projects' => 'projects#create'
+  post 'projects' => 'projects#index'
 
   post 'projects/fav' => 'projects#fav'
 

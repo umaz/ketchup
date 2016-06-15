@@ -11,32 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160614005459) do
-
-  create_table "Entries", force: :cascade do |t|
-    t.string   "name"
-    t.string   "kind"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "kana"
-    t.string   "about"
-    t.text     "detail"
-  end
-
-  create_table "Projects", force: :cascade do |t|
-    t.string   "name"
-    t.string   "kind"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "kana"
-    t.string   "about"
-    t.text     "detail"
-    t.integer  "count",      default: 0, null: false
-  end
+ActiveRecord::Schema.define(version: 20160615025738) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
     t.string   "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "entries", force: :cascade do |t|
+    t.string   "name"
+    t.string   "kana"
+    t.string   "about"
+    t.text     "detail"
+    t.string   "kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "name"
+    t.string   "kana"
+    t.string   "about"
+    t.text     "detail"
+    t.string   "kind"
+    t.integer  "count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

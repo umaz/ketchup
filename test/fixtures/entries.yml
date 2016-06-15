@@ -2,12 +2,14 @@
 
 one:
   name: MyString
-  group: MyString
-  about: MyText
+  kana: MyString
+  about: MyString
+  detail: MyText
   kind: MyString
 
 two:
   name: MyString
-  group: MyString
-  about: MyText
+  kana: MyString
+  about: MyString
+  detail: MyText
   kind: MyString

@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = Project.all
+    @q = Project.search(params[:q])
+    @projects = @q.result
     fav_list
   end
 
@@ -65,7 +66,6 @@ class ProjectsController < ApplicationController
 
   def search
   end
-
   def create
     @project = Entry.new(project_params)
     if @project.save

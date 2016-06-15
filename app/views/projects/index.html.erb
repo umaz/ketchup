@@ -7,13 +7,20 @@
 <h1><%= link_to index_path, :class => 'top' do %>
       <%= image_tag 'favicon.ico' , :width => '45', :height => '45'%>&nbsp;一覧
     <% end %></h1>
+    <%= search_form_for @q do |f| %>
+  <div class="field">
+    <%= f.label :name_cont, "Name contains" %>
+    <%= f.text_field :name_cont %><br>
+  </div>
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>
 <%= link_to 'トップ', index_path, :class => "btn btn-success" %>
 <table id="list_fav" class="table table-striped">
   <tr>
-    <th>用語名</th>
-    <th>概要</th>
-    <th>カテゴリー</th>
-    <th></th>
+    <th><%= sort_link @q, :name, '用語名' %></th>
+    <th><%= sort_link @q, :about, '概要' %></th>
+    <th><%= sort_link @q, :kind, 'カテゴリー' %></th>
+    <th><%= sort_link @q, :count, 'お気に入り' %></th>
   </tr>
   <% @projects.each do |project| %>
   <tr>
