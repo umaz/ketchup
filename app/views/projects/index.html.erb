@@ -29,9 +29,9 @@
     <td><%= link_to project.about, project_path(project.id) %></td>
     <td><%= link_to project.kind, project_path(project.id) %></td>
     <td><% if @lists.include?(project.id.to_s) %>
-          <%= button_to "お気に入り解除", {:action => "fav_remove_in_list", :data => project.id}, :remote => true, :class => "btn btn-danger" %>
+          <%= button_to "お気に入り解除", {:action => "fav_remove", :data => project.id}, :remote => true, :class => "btn btn-danger" %>
         <% else %>
-          <%= button_to "お気に入り登録", {:action => "fav_all", :data => project.id}, :remote => true, :class => "btn btn-warning" %>
+          <%= button_to "お気に入り登録", {:action => "fav", :data => project.id}, :remote => true, :class => "btn btn-warning" %>
         <% end %>
         <i class='glyphicon glyphicon-star'></i><%= project.count %>
     </td>

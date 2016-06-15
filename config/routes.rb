@@ -25,19 +25,11 @@ Rails.application.routes.draw do
 
   get 'projects/search'
 
-  post 'projects' => 'projects#index'
+  post 'fav_remove' => 'projects#fav_remove'
 
-  post 'projects/fav' => 'projects#fav'
+  post 'fav_remove' => 'index#fav_remove'
 
-  post 'fav_remove_in_detail' => 'projects#fav_remove_in_detail'
-
-  post 'fav_remove_in_list' => 'projects#fav_remove_in_list'
-
-  post 'fav_remove_in_fav_list' => 'index#fav_remove_in_fav_list'
-
-  post 'fav_detail' => 'projects#fav_detail'
-
-  post 'fav_all' => 'projects#fav_all'
+  post 'fav' => 'projects#fav'
 
   post 'confirm' => 'admin#confirm'
 

@@ -3,21 +3,12 @@ class ProjectsController < ApplicationController
     @q = Project.search(params[:q])
     @projects = @q.result.page(params[:page]).per(100)
     fav_list
+    @project = Project.all.sample
   end
 
   def show
     @project = Project.find(params[:id])
     fav_list
-  end
-
-  def fav_detail
-    fav
-    redirect_to project_path(params[:data])
-  end
-
-  def fav_all
-    fav
-    redirect_to projects_path
   end
 
   def fav
@@ -31,16 +22,17 @@ class ProjectsController < ApplicationController
     cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
     count = @project.count
     Project.update(@project.id, :count => count + 1)
+    redirect_to(:back)
   end
 
-  def fav_remove_in_detail
-    fav_remove
-    redirect_to project_path(params[:data])
-  end
-
-  def fav_remove_in_list
-    fav_remove
-    redirect_to projects_path
+  def fav_remove
+    @project = Project.find(params[:data])
+    count = @project.count
+    Project.update(@project.id, :count => count - 1)
+    key = JSON.parse(cookies[:fav])
+    key.delete(params[:data])
+    cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
+    redirect_to(:back)
   end
 
   def fav_list
@@ -51,21 +43,10 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def fav_remove
-    @project = Project.find(params[:data])
-    count = @project.count
-    Project.update(@project.id, :count => count - 1)
-    key = JSON.parse(cookies[:fav])
-    key.delete(params[:data])
-    cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
-  end
-
   def new
     @project = Entry.new
   end
 
-  def search
-  end
   def create
     @project = Entry.new(project_params)
     if @project.save
