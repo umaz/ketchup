@@ -9,9 +9,9 @@
     <%= search_form_for @q do |f| %>
     <div class="form-group">
       <div class="input-group">
-        <%= f.text_field :name, :class => "form-control", :value => @search %>
+        <%= f.text_field :name, :class => "form-control", :value => @value %>
         <span class="input-group-btn">
-          <%= button_tag( class: "btn btn-primary") do %>
+          <%= button_tag( class: "btn btn-primary", value: "search") do %>
             <%= content_tag :span, "検索", class: "glyphicon glyphicon-search" %>
           <% end %>
         </span>
@@ -33,15 +33,16 @@
     <td><%= link_to project.name, project_path(project.id) %></td>
     <td><%= link_to project.about, project_path(project.id) %></td>
     <td><%= link_to project.kind, project_path(project.id) %></td>
-    <td><% if @lists.include?(project.id.to_s) %>
-          <%= button_to "お気に入り解除", {:action => "fav_remove", :data => project.id}, :remote => true, :class => "btn btn-danger" %>
+    <td id=<%= project.id %>><% if @lists.include?(project.id.to_s) %>
+          <%= button_to "お気に入り解除", {:action => "fav_remove", :data => project.id}, :remote => true, :onClick => "fav(0)", :class => "btn btn-danger" %>
         <% else %>
-          <%= button_to "お気に入り登録", {:action => "fav", :data => project.id}, :remote => true, :class => "btn btn-warning" %>
+          <%= button_to "お気に入り登録", {:action => "fav", :data => project.id}, :remote => true, :onClick => "fav(1)", :class => "btn btn-warning" %>
         <% end %>
-        <i class='glyphicon glyphicon-star'></i><%= project.count %>
+        <i class='glyphicon glyphicon-star'></i><span id="count"><%= project.count %></span>
     </td>
   </tr>
   <% end %>
 </table>
 <%= paginate @projects %>
 <%= stylesheet_link_tag "list", :media => "all" %>
+<%= javascript_include_tag "fav" %>

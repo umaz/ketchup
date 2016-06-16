@@ -7,8 +7,8 @@ Rails.application.config.assets.precompile += %w( list.css )
 Rails.application.config.assets.precompile += %w( new.css )
 Rails.application.config.assets.precompile += %w( detail.css )
 Rails.application.config.assets.precompile += %w( fade.js )
-Rails.application.config.assets.precompile += %w( fav.js )
 Rails.application.config.assets.precompile += %w( detail.css )
+Rails.application.config.assets.precompile += %w( fav.js )
 # Add additional assets to the asset load path
 # Rails.application.config.assets.paths << Emoji.images_path
 

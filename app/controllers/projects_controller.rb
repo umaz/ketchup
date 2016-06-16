@@ -72,7 +72,12 @@ class ProjectsController < ApplicationController
 
   def conversion
     if params[:q].include?(:name)
-      @search = params[:q][:name].split(/\s/)
+      advance = "node_format:'%m,%f[6],%f[7],%f[8],%f[0]\n'"
+      normal = "node_format:'%m'"
+      mecab = Natto::MeCab.new(node_format:'%m\n', unk_format:"%M", eos_format:"")
+      @value = params[:q][:name]
+      @result = mecab.parse(params[:q][:name])
+      @search = @result.split(/\n/)
     else
       @search = nil
     end
