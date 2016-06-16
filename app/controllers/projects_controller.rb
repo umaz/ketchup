@@ -14,6 +14,9 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     fav_list
+    detail
+    @q = Project.search(:name_or_kana_or_about_or_detail_or_kind_cont_any => @search)
+    @projects = @q.result.page(params[:page])
   end
 
   def fav
@@ -81,6 +84,24 @@ class ProjectsController < ApplicationController
     else
       @search = nil
     end
+  end
+
+  def detail
+    mecab = Natto::MeCab.new(node_format:'%m,%f[6],%f[7],%f[8],%f[0]\n', unk_format:"%M", eos_format:"")
+    word = @project.name + @project.about + @project.detail
+    @result = mecab.parse(word)
+    @result = @result.split(/\n/)
+      @s = @result.select do |word|
+      word =~ /,名詞|,動詞/
+      end
+      @s.map! do |str|
+        str.split(/,/)
+      end
+      @s.each do |pop|
+        pop.pop
+      end
+      @s.flatten!
+      @search = @s.uniq
   end
 
   private
