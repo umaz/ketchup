@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   get 'admin/projects/:id/edit' => 'admin#edit', as: 'edit'
 
+  get 'admin/word_list' => 'admin#word_list'
+
   get '/' => 'index#index'
 
   post 'fav_remove' => 'projects#fav_remove'
@@ -34,6 +36,8 @@ Rails.application.routes.draw do
   post 'reject' => 'admin#reject'
 
   post 'destroy' => 'admin#destroy'
+
+  post 'make' => 'admin#make'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

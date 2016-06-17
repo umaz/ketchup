@@ -1,8 +1,27 @@
 class ProjectsController < ApplicationController
   def index
     if params.include?(:q)
-      conversion
-      @q = Project.search(:name_or_kana_or_about_or_detail_or_kind_cont_all => @search, :s => params[:q][:s])
+      if params[:q].include?(:name)
+        if params[:q][:name] == ""
+          @q = Project.search(params[:q])
+        else
+          conversion
+          @b = Search.search(:word_cont_any => @search)
+          @before = @b.result
+          @r = Hash.new(0)
+          @before.each do |sum|
+            @r[sum.project_id] += sum.tfidf
+          end
+          @sort = @r.sort{|(k1, v1), (k2, v2)| v2 <=> v1 }
+          @sort.each do |del|
+            del.pop
+          end
+          @sort.flatten!
+          @q = Project.search(:id_eq_any => @sort, :s => params[:q][:s])
+        end
+      else
+        @q = Project.search(params[:q])
+      end
     else
       @q = Project.search(params[:q])
     end
@@ -15,7 +34,19 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     fav_list
     detail
-    @q = Project.search(:name_or_kana_or_about_or_detail_or_kind_cont_any => @search)
+    @b = Search.search(:word_cont_any => @search)
+    @before = @b.result
+    @r = Hash.new(0)
+    @before.each do |sum|
+      @r[sum.project_id] += sum.tfidf
+    end
+    @sort = @r.sort{|(k1, v1), (k2, v2)| v2 <=> v1 }
+    @sort.each do |del|
+      del.pop
+    end
+    @sort.flatten!
+    @sort.delete_at(0)
+    @q = Project.search(:id_eq_any => @sort)
     @projects = @q.result.page(params[:page])
   end
 
@@ -74,19 +105,15 @@ class ProjectsController < ApplicationController
   end
 
   def conversion
-    if params[:q].include?(:name)
-      mecab = Natto::MeCab.new(node_format:'%m$$', unk_format:"%M$$", eos_format:"")
-      @value = params[:q][:name]
-      @result = mecab.parse(@value)
-      @search = @result.split(/\$\$/)
-      @search.map! do |del|
-        del.gsub(/\s|　/,"")
-      end
-      @search.delete_if do |del|
-        del =~ /^$/
-      end
-    else
-      @search = nil
+    mecab = Natto::MeCab.new(node_format:'%m$$', unk_format:"%M$$", eos_format:"")
+    @value = params[:q][:name]
+    @result = mecab.parse(@value)
+    @search = @result.split(/\$\$/)
+    @search.map! do |del|
+      del.gsub(/\s|　/,"")
+    end
+    @search.delete_if do |del|
+      del =~ /^$/
     end
   end
 

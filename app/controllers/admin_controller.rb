@@ -46,12 +46,12 @@ before_action :set_project, only: [:detail, :edit]
     redirect_to admin_list_path
   end
 
-  def makes
+  def make
     mecab = Natto::MeCab.new(node_format:'%m,%f[6],%f[7],%f[8],%f[0]$$', unk_format:"%M,名詞$$", eos_format:"")
     @tfidf = Hash.new { |h,k| h[k] = {} }
     @projects = Project.all
     @projects.each do |s|
-      @word = s.name * 5 + s.about * 3 + s.detail
+      @word = (s.name + "," * 5) + (s.about + "," * 3) + s.detail
       @result = mecab.parse(@word)
       @result = @result.split(/\$\$/)
       @ti = @result.select do |word|
@@ -68,7 +68,7 @@ before_action :set_project, only: [:detail, :edit]
         del =~ /^$|\.|\(|\)/
       end
       @word_store = Hash.new(0)
-      @tl.each do |count|
+      @ti.each do |count|
         @word_store[count] += 1
       end
       sum = 0
@@ -94,11 +94,27 @@ before_action :set_project, only: [:detail, :edit]
     idf.each do |k, v|
     	@tfidf.each_value do |value|
     		if value.include?(k)
-    			value[k] = value[k] * (Math.log(p.to_f/v) + 1)
+    			value[k] = value[k] * (Math.log(l.to_f/v) + 1)
     		end
     	end
     end
+    @search = Array.new
+    @tfidf.each do |k, v|
+    	v.each do |key, val|
+    		data = Hash.new
+    		data[:project_id] = k
+    		data[:word] = key
+        data[:tfidf] = val
+    	  @search.push(data)
+    	end
+    end
+    Search.delete_all
+    Search.create(@search)
+    redirect_to admin_word_list_path
+  end
 
+  def word_list
+    @searches = Search.all
   end
 
   private

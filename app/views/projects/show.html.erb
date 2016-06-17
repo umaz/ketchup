@@ -4,6 +4,7 @@
 </div>
 </header>
 <%= @search %>
+<%= @sort %>
 <h1><%= @project.name %></h1>
 <h2><%= @project.about %></h2>
 <p><%= simple_format(@project.detail.gsub(/\\n/, "\n")) %></p>
@@ -21,10 +22,14 @@
   <tr>
     <th>似ているワード</th>
   </tr>
-  <% @projects.each do |project| %>
-  <tr>
-    <td><%= link_to project.name, project_path(project.id) %></td>
-  </tr>
+  <%= @sort.each do |s| %>
+    <% @projects.each do |project| %>
+      <% if project.id == s %>
+        <tr>
+          <td><%= link_to project.name, project_path(project.id) %></td>
+        </tr>
+      <% end %>
+    <% end %>
   <% end %>
 </table>
 <%= paginate @projects %>

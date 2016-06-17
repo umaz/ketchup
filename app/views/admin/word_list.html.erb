@@ -1,0 +1,17 @@
+<table id="list_fav" class="table table-striped">
+  <tr>
+    <th>ID</th>
+    <th>用語ID</th>
+    <th>ワード</th>
+    <th>TfIdf</th>
+  </tr>
+  <% @searches.each do |s| %>
+  <tr>
+    <td><%= s.id %></td>
+    <td><%= s.project_id %></td>
+    <td><%= s.word %></td>
+    <td><%= s.tfidf %></td>
+  </tr>
+  <% end %>
+</table>
+<%= link_to 'トップ', admin_index_path %>
