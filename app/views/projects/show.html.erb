@@ -3,7 +3,7 @@
   <p>筑波大学用語辞典</p>
 </div>
 </header>
-<%= @result %>
+<%= @search %>
 <h1><%= @project.name %></h1>
 <h2><%= @project.about %></h2>
 <p><%= simple_format(@project.detail.gsub(/\\n/, "\n")) %></p>

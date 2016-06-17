@@ -87,10 +87,10 @@ class ProjectsController < ApplicationController
   end
 
   def detail
-    mecab = Natto::MeCab.new(node_format:'%m,%f[6],%f[7],%f[8],%f[0]\n', unk_format:"%M", eos_format:"")
-    word = @project.name + @project.about + @project.detail
+    mecab = Natto::MeCab.new(node_format:'%m,%f[6],%f[7],%f[8],%f[0]$$', unk_format:"%M,名詞$$", eos_format:"")
+    word = @project.name + ',' + @project.about + ',' + @project.detail
     @result = mecab.parse(word)
-    @result = @result.split(/\n/)
+    @result = @result.split(/\$\$/)
       @s = @result.select do |word|
       word =~ /,名詞|,動詞/
       end
@@ -101,6 +101,9 @@ class ProjectsController < ApplicationController
         pop.pop
       end
       @s.flatten!
+      @s.delete_if do |del|
+        del =~ /^$|\.|\(|\)/
+      end
       @search = @s.uniq
   end
 
