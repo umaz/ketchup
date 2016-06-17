@@ -6,21 +6,25 @@
 <%= @search %>
 <h1><%= link_to index_path, :class => 'top' do %>
       <%= image_tag 'favicon.ico' , :width => '45', :height => '45'%>&nbsp;検索結果一覧
-    <% end %></h1>
-    <%= search_form_for @q do |f| %>
-    <div class="form-group">
-      <div class="input-group">
-        <%= f.text_field :name, :class => "form-control", :value => @value %>
-        <span class="input-group-btn">
-          <%= button_tag( class: "btn btn-primary", value: "search") do %>
-            <%= content_tag :span, "検索", class: "glyphicon glyphicon-search" %>
-          <% end %>
-        </span>
-      </div>
-    </div>
-    <% end %>
-    <%= link_to 'トップ', index_path, :class => "btn btn-success" %>
-<%= page_entries_info @projects %>
+<% end %></h1>
+<%= search_form_for @q do |f| %>
+<div class="form-group">
+  <div class="input-group">
+    <%= f.text_field :name, :class => "form-control", :value => @value %>
+    <span class="input-group-btn">
+      <%= button_tag( class: "btn btn-primary", value: "search") do %>
+        <%= content_tag :span, "検索", class: "glyphicon glyphicon-search" %>
+      <% end %>
+    </span>
+  </div>
+</div>
+<% end %>
+<%= link_to 'トップ', index_path, :class => "btn btn-success" %>
+<% if @projects.size == 0 %>
+  該当データがありません
+<% else %>
+  <%= page_entries_info @projects %>
+<% end %>
 <%= paginate @projects %>
 <table id="list_fav" class="table table-striped">
   <tr>
@@ -34,12 +38,13 @@
     <td><%= link_to project.name, project_path(project.id) %></td>
     <td><%= link_to project.about, project_path(project.id) %></td>
     <td><%= link_to project.kind, project_path(project.id) %></td>
-    <td id=<%= project.id %>><% if @lists.include?(project.id.to_s) %>
-          <%= button_to "お気に入り解除", {:action => "fav_remove", :data => project.id}, :remote => true, :onClick => "fav(0)", :class => "btn btn-danger" %>
-        <% else %>
-          <%= button_to "お気に入り登録", {:action => "fav", :data => project.id}, :remote => true, :onClick => "fav(1)", :class => "btn btn-warning" %>
-        <% end %>
-        <i class='glyphicon glyphicon-star'></i><span id="count"><%= project.count %></span>
+    <td id=<%= project.id %>>
+      <% if @lists.include?(project.id.to_s) %>
+        <%= button_to "お気に入り解除", {:action => "fav_remove", :data => project.id}, :remote => true, :onClick => "fav(0)", :class => "btn btn-danger" %>
+      <% else %>
+        <%= button_to "お気に入り登録", {:action => "fav", :data => project.id}, :remote => true, :onClick => "fav(1)", :class => "btn btn-warning" %>
+      <% end %>
+      <i class='glyphicon glyphicon-star'></i><span id="count"><%= project.count %></span>
     </td>
   </tr>
   <% end %>
