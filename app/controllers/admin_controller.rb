@@ -46,6 +46,61 @@ before_action :set_project, only: [:detail, :edit]
     redirect_to admin_list_path
   end
 
+  def makes
+    mecab = Natto::MeCab.new(node_format:'%m,%f[6],%f[7],%f[8],%f[0]$$', unk_format:"%M,名詞$$", eos_format:"")
+    @tfidf = Hash.new { |h,k| h[k] = {} }
+    @projects = Project.all
+    @projects.each do |s|
+      @word = s.name * 5 + s.about * 3 + s.detail
+      @result = mecab.parse(@word)
+      @result = @result.split(/\$\$/)
+      @ti = @result.select do |word|
+        word =~ /,名詞|,動詞|,形容詞/
+      end
+      @ti.map! do |str|
+        str.split(/,/)
+      end
+      @ti.each do |pop|
+        pop.pop
+      end
+      @ti.flatten!
+      @ti.delete_if do |del|
+        del =~ /^$|\.|\(|\)/
+      end
+      @word_store = Hash.new(0)
+      @tl.each do |count|
+        @word_store[count] += 1
+      end
+      sum = 0
+      @word_store.each_value do |v|
+        sum += v
+      end
+      @word_store.each do |k, v|
+    		@word_store[k] = (v/sum.to_f)
+    	end
+      @word_store.sort.each do |k, v|
+    		@tfidf[s.id][k] = v
+      end
+    end
+    l = @tfidf.length.to_f
+    word = Array.new
+    @tfidf.each_value do |v|
+    	word += v.keys
+    end
+    idf = Hash.new(0)
+    word.each do |h|
+    	idf[h] += 1
+    end
+    idf.each do |k, v|
+    	@tfidf.each_value do |value|
+    		if value.include?(k)
+    			value[k] = value[k] * (Math.log(p.to_f/v) + 1)
+    		end
+    	end
+    end
+
+  end
+
   private
   def set_project
   @project = Project.find(params[:id])

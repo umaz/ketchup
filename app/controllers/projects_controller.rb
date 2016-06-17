@@ -75,12 +75,16 @@ class ProjectsController < ApplicationController
 
   def conversion
     if params[:q].include?(:name)
-      advance = "node_format:'%m,%f[6],%f[7],%f[8],%f[0]\n'"
-      normal = "node_format:'%m'"
-      mecab = Natto::MeCab.new(node_format:'%m\n', unk_format:"%M", eos_format:"")
+      mecab = Natto::MeCab.new(node_format:'%m$$', unk_format:"%M$$", eos_format:"")
       @value = params[:q][:name]
-      @result = mecab.parse(params[:q][:name])
-      @search = @result.split(/\n/)
+      @result = mecab.parse(@value)
+      @search = @result.split(/\$\$/)
+      @search.map! do |del|
+        del.gsub(/\s|　/,"")
+      end
+      @search.delete_if do |del|
+        del =~ /^$/
+      end
     else
       @search = nil
     end
@@ -92,7 +96,7 @@ class ProjectsController < ApplicationController
     @result = mecab.parse(word)
     @result = @result.split(/\$\$/)
       @s = @result.select do |word|
-      word =~ /,名詞|,動詞/
+      word =~ /,名詞|,動詞|,形容詞/
       end
       @s.map! do |str|
         str.split(/,/)
@@ -101,10 +105,10 @@ class ProjectsController < ApplicationController
         pop.pop
       end
       @s.flatten!
-      @s.delete_if do |del|
+      @search = @s.uniq
+      @search.delete_if do |del|
         del =~ /^$|\.|\(|\)/
       end
-      @search = @s.uniq
   end
 
   private
