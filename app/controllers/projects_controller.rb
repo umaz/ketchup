@@ -37,11 +37,12 @@ class ProjectsController < ApplicationController
     fav_list
     detail
     search
-    @sort.delete_at(0)
+    @sort.shift
     if @sort.empty?
       @q = Project.search(:id_eq => 0)
       @projects = @q.result.page(params[:page])
     else
+      @sort = @sort.take(5)
       @projects = Project.page(params[:page]).where(id: @sort).where(id: @sort).order("field(id, #{@sort.join(',')})")
     end
   end
