@@ -22,14 +22,10 @@
   <tr>
     <th>似ているワード</th>
   </tr>
-  <%= @sort.each do |s| %>
-    <% @projects.each do |project| %>
-      <% if project.id == s %>
-        <tr>
-          <td><%= link_to project.name, project_path(project.id) %></td>
-        </tr>
-      <% end %>
-    <% end %>
+  <%= @projects.each do |project| %>
+  <tr>
+    <td><%= link_to project.name, project_path(project.id) %></td>
+  </tr>
   <% end %>
 </table>
 <%= paginate @projects %>
