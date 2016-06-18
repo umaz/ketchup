@@ -3,7 +3,6 @@
   <p>筑波大学用語辞典</p>
 </div>
 </header>
-<%= @search %>
 <%= @sort %>
 <h1><%= @project.name %></h1>
 <h2><%= @project.about %></h2>
@@ -18,18 +17,15 @@
   <i class='glyphicon glyphicon-star'></i>
   <%= @project.count %>
 </div>
+<%= paginate @projects %>
 <table id="list_fav" class="table table-striped">
   <tr>
-    <th>似ているワード</th>
+    <th><%= sort_link @q, :name, '似ているワード' %></th>
   </tr>
-  <%= @sort.each do |s| %>
     <% @projects.each do |project| %>
-      <% if project.id == s %>
         <tr>
           <td><%= link_to project.name, project_path(project.id) %></td>
         </tr>
-      <% end %>
-    <% end %>
   <% end %>
 </table>
 <%= paginate @projects %>

@@ -14,46 +14,46 @@
 ActiveRecord::Schema.define(version: 20160617121047) do
 
   create_table "admins", force: :cascade do |t|
-    t.string   "name"
-    t.string   "password"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 255
+    t.string   "password",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "entries", force: :cascade do |t|
-    t.string   "name"
-    t.string   "kana"
-    t.string   "about"
-    t.text     "detail"
-    t.string   "kind"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 255
+    t.string   "kana",       limit: 255
+    t.string   "about",      limit: 255
+    t.text     "detail",     limit: 65535
+    t.string   "kind",       limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string   "name"
-    t.string   "kana"
-    t.string   "about"
-    t.text     "detail"
-    t.string   "kind"
-    t.integer  "count"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 255
+    t.string   "kana",       limit: 255
+    t.string   "about",      limit: 255
+    t.text     "detail",     limit: 65535
+    t.string   "kind",       limit: 255
+    t.integer  "count",      limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "searches", force: :cascade do |t|
-    t.integer  "project_id"
-    t.text     "word"
-    t.float    "tfidf"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "project_id", limit: 4
+    t.text     "word",       limit: 65535
+    t.float    "tfidf",      limit: 24
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "password"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 255
+    t.string   "password",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
 end

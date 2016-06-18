@@ -6,18 +6,12 @@ class ProjectsController < ApplicationController
           @q = Project.search(params[:q])
         else
           conversion
-          @b = Search.search(:word_cont_any => @search)
-          @before = @b.result
-          @r = Hash.new(0)
-          @before.each do |sum|
-            @r[sum.project_id] += sum.tfidf
+          search
+          if @sort.empty?
+            @q = Project.search(:id_eq => 0, :s => params[:q][:s])
+          else
+            @q = Project.search(:id_eq_any => @sort, :s => params[:q][:s])
           end
-          @sort = @r.sort{|(k1, v1), (k2, v2)| v2 <=> v1 }
-          @sort.each do |del|
-            del.pop
-          end
-          @sort.flatten!
-          @q = Project.search(:id_eq_any => @sort, :s => params[:q][:s])
         end
       else
         @q = Project.search(params[:q])
@@ -25,7 +19,11 @@ class ProjectsController < ApplicationController
     else
       @q = Project.search(params[:q])
     end
-    @projects = @q.result.page(params[:page]).per(100)
+    if @q.sorts.empty?
+      @projects = Project.page(params[:page]).where(id: @sort).order(['field(id, ?)', @sort])
+    else
+      @projects = @q.result.page(params[:page])
+    end
     fav_list
     @project = Project.all.sample
   end
@@ -34,17 +32,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     fav_list
     detail
-    @b = Search.search(:word_cont_any => @search)
-    @before = @b.result
-    @r = Hash.new(0)
-    @before.each do |sum|
-      @r[sum.project_id] += sum.tfidf
-    end
-    @sort = @r.sort{|(k1, v1), (k2, v2)| v2 <=> v1 }
-    @sort.each do |del|
-      del.pop
-    end
-    @sort.flatten!
+    search
     @sort.delete_at(0)
     @q = Project.search(:id_eq_any => @sort)
     @projects = @q.result.page(params[:page])
@@ -136,6 +124,20 @@ class ProjectsController < ApplicationController
       @search.delete_if do |del|
         del =~ /^$|\.|\(|\)/
       end
+  end
+
+  def search
+    @b = Search.search(:word_cont_any => @search)
+    @before = @b.result
+    @r = Hash.new(0)
+    @before.each do |sum|
+      @r[sum.project_id] += sum.tfidf
+    end
+    @sort = @r.sort{|(k1, v1), (k2, v2)| v2 <=> v1 }
+    @sort.each do |del|
+      del.pop
+    end
+    @sort.flatten!
   end
 
   private
