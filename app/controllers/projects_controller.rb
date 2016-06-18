@@ -14,7 +14,8 @@ class ProjectsController < ApplicationController
               @q = Project.search(:id_eq => 0)
               @projects = @q.result.page(params[:page])
             else
-              @projects = Project.page(params[:page]).where(id: @sort).where(id: @sort).order("field(id, #{@sort.join(',')})")
+              @q = Project.search(:id_eq_any => @sort)
+              @projects= @q.result.page(params[:page])
             end
           else
             @projects = @q.result.page(params[:page])
