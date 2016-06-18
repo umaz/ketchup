@@ -20,7 +20,7 @@
         <%= val %>
       <% end %>
     </td>
-    <td>
+    <td class="btn_right">
       <%= button_to "お気に入り解除", {:action => "fav_remove", :data => key}, :remote => true, :class => "btn btn-danger fav-btn" %>
     </td>
   </tr>
