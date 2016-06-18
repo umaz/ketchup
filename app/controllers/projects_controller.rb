@@ -4,24 +4,28 @@ class ProjectsController < ApplicationController
       if params[:q].include?(:name)
         if params[:q][:name] == ""
           @q = Project.search(params[:q])
+          @projects = @q.result.page(params[:page])
         else
           conversion
           search
-          if @sort.empty?
-            @q = Project.search(:id_eq => 0, :s => params[:q][:s])
+          @q = Project.search(:id_eq_any => @sort, :s => params[:q][:s])
+          if @q.sorts.empty?
+            if @sort.empty?
+              @q = Project.search(:id_eq => 0)
+              @projects = @q.result.page(params[:page])
+            else
+              @projects = Project.page(params[:page]).where(id: @sort).where(id: @sort).order("field(id, #{@sort.join(',')})")
+            end
           else
-            @q = Project.search(:id_eq_any => @sort, :s => params[:q][:s])
+            @projects = @q.result.page(params[:page])
           end
         end
       else
         @q = Project.search(params[:q])
+        @projects = @q.result.page(params[:page])
       end
     else
       @q = Project.search(params[:q])
-    end
-    if @q.sorts.empty?
-      @projects = Project.page(params[:page]).where(id: @sort).where(id: @sort).order("field(id, #{@sort.join(',')})")
-    else
       @projects = @q.result.page(params[:page])
     end
     fav_list
