@@ -20,7 +20,7 @@
 <%= paginate @projects %>
 <table id="list_fav" class="table table-striped">
   <tr>
-    <th><%= sort_link @q, :name, '似ているワード' %></th>
+    <th>似ているワード</th>
   </tr>
     <% @projects.each do |project| %>
         <tr>

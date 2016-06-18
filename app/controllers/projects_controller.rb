@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
       @q = Project.search(params[:q])
     end
     if @q.sorts.empty?
-      @projects = Project.page(params[:page]).where(id: @sort).order(['field(id, ?)', @sort])
+      @projects = Project.page(params[:page]).where(id: @sort).where(id: @sort).order("field(id, #{@sort.join(',')})")
     else
       @projects = @q.result.page(params[:page])
     end
@@ -34,8 +34,12 @@ class ProjectsController < ApplicationController
     detail
     search
     @sort.delete_at(0)
-    @q = Project.search(:id_eq_any => @sort)
-    @projects = @q.result.page(params[:page])
+    if @sort.empty?
+      @q = Project.search(:id_eq => 0)
+      @projects = @q.result.page(params[:page])
+    else
+      @projects = Project.page(params[:page]).where(id: @sort).where(id: @sort).order("field(id, #{@sort.join(',')})")
+    end
   end
 
   def fav
