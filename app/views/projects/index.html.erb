@@ -3,9 +3,9 @@
   <p>筑波大学用語辞典</p>
 </div>
 </header>
-<%= @search %>
+<%= image_tag 'image.png' , :width => '250', :height => '100'%>
 <h1><%= link_to index_path, :class => 'top' do %>
-      <%= image_tag 'favicon.ico' , :width => '45', :height => '45'%>&nbsp;検索結果一覧
+  検索結果一覧
 <% end %></h1>
 <%= search_form_for @q do |f| %>
 <div class="form-group">
@@ -19,14 +19,15 @@
   </div>
 </div>
 <% end %>
+
 <%= link_to 'トップ', index_path, :class => "btn btn-success" %>
-<%= @sort %>
-<%= params %>
+<div class="project_num">
 <% if @projects.size == 0 %>
   該当データがありません
 <% else %>
   <%= page_entries_info @projects %>
 <% end %>
+</div>
 <%= paginate @projects %>
 <table id="list_fav" class="table table-striped">
   <tr>

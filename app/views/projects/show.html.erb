@@ -3,11 +3,13 @@
   <p>筑波大学用語辞典</p>
 </div>
 </header>
-<%= @sort %>
+<%= image_tag 'image.png' , :width => '250', :height => '100'%>
+<div class="info_detail">
 <h1><%= @project.name %></h1>
-<h2><%= @project.about %></h2>
+<h3><%= @project.about %></h3>
 <p><%= simple_format(@project.detail.gsub(/\\n/, "\n")) %></p>
-<p><%= @project.kind %></p>
+<p>カテゴリー：<%= @project.kind %></p>
+</div>
 <div id="fav_detail" class="center">
   <% if @lists.include?(@project.id.to_s) %>
     <%= button_to "お気に入り解除", {:action => "fav_remove", :data => @project.id}, :remote => true, :class => "btn btn-danger" %>
@@ -30,7 +32,7 @@
 </table>
 <%= paginate @projects %>
 
-<%= link_to '戻る', :back, :class => "btn btn-primary" %>
+<%= link_to '前のページへ戻る', :back, :class => "btn btn-primary" %>
 <%= link_to 'トップ', index_path, :class => "btn btn-success" %>
 
 <%= stylesheet_link_tag "detail", :media=> "all" %>
