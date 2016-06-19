@@ -20,8 +20,9 @@
     <%= f.label 'カテゴリー' %>
     <%= f.select :kind, {"主食" => "主食", "軽食" => "軽食", "スイーツ" => "スイーツ", "ドリンク" => "ドリンク", "販売" => "販売", "展示" => "展示", "参加型" => "参加型", "ステージ" => "ステージ", "パフォーマンス" => "パフォーマンス", "その他" => "その他"}, {}, :class => "form-control" %>
   </div>
-  <div class="input-group">
+  <div class="input-group input_sub">
     <%= f.submit '登録', :class => 'btn btn-primary' %>
   </div>
 </div>
 <% end %>
+<%= stylesheet_link_tag "form", :media => "all" %>

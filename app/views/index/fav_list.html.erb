@@ -7,7 +7,7 @@
   <%= image_tag 'image.png' , :width => '250', :height => '100'%>
 <% end %>
 <h1>お気に入り</h1>
-<%= link_to 'トップ', index_path, :class => "btn btn-success" %>
+
 <table id="fav_list" class="table table-striped">
   <tr>
     <th>お気に入り一覧</th>
@@ -26,4 +26,5 @@
   </tr>
   <% end %>
 </table>
+<%= link_to 'トップ', index_path, :class => "btn btn-success" %>
 <%= stylesheet_link_tag "list", :media => "all" %>
