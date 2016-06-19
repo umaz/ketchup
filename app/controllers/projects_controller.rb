@@ -44,7 +44,7 @@ class ProjectsController < ApplicationController
     fav_list
     detail
     search
-    @sort.shift
+    @sort.delete(params[:id].to_i)
     if @sort.empty?
       @q = Project.search(:id_eq => 0)
       @projects = @q.result.page(params[:page])
