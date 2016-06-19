@@ -58,6 +58,7 @@ class ProjectsController < ApplicationController
     cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
     count = @project.count
     Project.update(@project.id, :count => count + 1)
+    @befors = @projects
     redirect_to(:back)
   end
 
@@ -68,6 +69,7 @@ class ProjectsController < ApplicationController
     key = JSON.parse(cookies[:fav])
     key.delete(params[:data])
     cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
+    @befors = @projects
     redirect_to(:back)
   end
 

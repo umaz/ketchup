@@ -6,6 +6,7 @@
 <%= link_to index_path, :class => 'top' do %>
   <%= image_tag 'image.png' , :width => '250', :height => '100'%>
 <% end %>
+<%= @projects.ids %>
 <h1>検索結果一覧</h1>
 <%= search_form_for @q do |f| %>
 <div class="form-group">
