@@ -40,11 +40,13 @@
           <td><%= link_to project.kind, project_path(project.id) %></td>
           <td id=<%= project.id %>>
             <% if @lists.include?(project.id.to_s) %>
-              <%= button_to "お気に入り解除", {:action => "fav_remove", :data => project.id}, :remote => true, :onClick => "disabled = true;", :class => "btn btn-danger" %>
+              <%= button_to "お気に入り解除", {:action => "fav_remove", :data => project.id}, :remote => true, :onclick => "this.disabled=true;this.value='アップロード処理中...';this.form.submit();", :class => "btn btn-danger" %>
             <% else %>
-              <%= button_to "お気に入り登録", {:action => "fav", :data => project.id}, :remote => true, :onsubmit => "disabled = true;", :class => "btn btn-warning" %>
+              <%= button_to "お気に入り登録", {:action => "fav", :data => project.id}, :remote => true, :onclick => "this.disabled=true;this.value='アップロード処理中...';this.form.submit();", :class => "btn btn-warning" %>
             <% end %>
             <i class='glyphicon glyphicon-star'></i><span id="count"><%= project.count %></span>
+            <%= form_tag('/fav', :remote => true) do %>
+            <% end %>
           </td>
         </tr>
   <% end %>
