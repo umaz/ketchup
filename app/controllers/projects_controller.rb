@@ -1,33 +1,40 @@
 class ProjectsController < ApplicationController
   def index
-    if params.include?(:q)
-      if params[:q].include?(:name)
-        if params[:q][:name] == ""
-          @q = Project.search(params[:q])
-          @projects = @q.result.page(params[:page])
-        else
-          conversion
-          search
-          @q = Project.search(:id_eq_any => @sort, :s => params[:q][:s])
-          if @q.sorts.empty?
+    if session[:back] == nil
+      if params.include?(:q)
+        if params[:q].include?(:name)
+          if params[:q][:name] == ""
+            @q = Project.search(params[:q])
+            @projects = @q.result.page(params[:page])
+          else
+            conversion
+            search
+            @q = Project.search(:id_eq_any => @sort, :s => params[:q][:s])
             if @sort.empty?
               @q = Project.search(:id_eq => 0)
               @projects = @q.result.page(params[:page])
             else
-              @projects = Project.page(params[:page]).where(id: @sort).where(id: @sort).order("field(id, #{@sort.join(',')})")
+              if @q.sorts.empty?
+                @projects = Project.page(params[:page]).where(id: @sort).where(id: @sort).order("field(id, #{@sort.join(',')})")
+              else
+                @projects = @q.result.page(params[:page])
+              end
             end
-          else
-            @projects = @q.result.page(params[:page])
           end
+        else
+          @q = Project.search(params[:q])
+          @projects = @q.result.page(params[:page])
         end
       else
         @q = Project.search(params[:q])
         @projects = @q.result.page(params[:page])
       end
     else
-      @q = Project.search(params[:q])
-      @projects = @q.result.page(params[:page])
+      @s = session[:back]
+      @q = Project.search(:id_eq_any => @s, :s => params[:q][:s])
+      @projects = Project.where(id: @s).where(id: @s).order("field(id, #{@s.join(',')})")
     end
+    session[:back] = nil
     fav_list
     @project = Project.all.sample
   end
@@ -37,7 +44,7 @@ class ProjectsController < ApplicationController
     fav_list
     detail
     search
-    @sort.delete(params[:id].to_i)
+    @sort.shift
     if @sort.empty?
       @q = Project.search(:id_eq => 0)
       @projects = @q.result.page(params[:page])
@@ -48,7 +55,7 @@ class ProjectsController < ApplicationController
   end
 
   def fav
-    @project = Project.find(params[:data])
+    @project = Project.find(params[:data][:id])
     if cookies[:fav] == nil
       key = Hash.new
     else
@@ -58,18 +65,18 @@ class ProjectsController < ApplicationController
     cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
     count = @project.count
     Project.update(@project.id, :count => count + 1)
-    @befors = @projects
+    session[:back] = params[:data][:before]
     redirect_to(:back)
   end
 
   def fav_remove
-    @project = Project.find(params[:data])
+    @project = Project.find(params[:data][:id])
     count = @project.count
     Project.update(@project.id, :count => count - 1)
     key = JSON.parse(cookies[:fav])
-    key.delete(params[:data])
+    key.delete(params[:data][:id])
     cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
-    @befors = @projects
+    session[:back] = params[:data][:before]
     redirect_to(:back)
   end
 
@@ -104,24 +111,16 @@ class ProjectsController < ApplicationController
   end
 
   def conversion
-    mecab = Natto::MeCab.new(node_format:'%m,%f[6],%f[7],%f[8],%f[0]$$', unk_format:"%M,名詞$$", eos_format:"")
+    mecab = Natto::MeCab.new(node_format:'%m$$', unk_format:"%M$$", eos_format:"")
     @value = params[:q][:name]
     @result = mecab.parse(@value)
-    @result = @result.split(/\$\$/)
-      @s = @result.select do |word|
-      word =~ /,名詞|,動詞|,形容詞/
-      end
-      @s.map! do |str|
-        str.split(/,/)
-      end
-      @s.each do |pop|
-        pop.pop
-      end
-      @s.flatten!
-      @search = @s.uniq
-      @search.delete_if do |del|
-        del =~ /^$|\.|\(|\)/
-      end
+    @search = @result.split(/\$\$/)
+    @search.map! do |del|
+      del.gsub(/\s|　/,"")
+    end
+    @search.delete_if do |del|
+      del =~ /^$/
+    end
   end
 
   def detail
@@ -146,21 +145,17 @@ class ProjectsController < ApplicationController
   end
 
   def search
-    if @search.empty?
-      @sort = []
-    else
-      @b = Search.search(:word_cont_any => @search)
-      @before = @b.result
-      @r = Hash.new(0)
-      @before.each do |sum|
-        @r[sum.project_id] += sum.tfidf
-      end
-      @sort = @r.sort{|(k1, v1), (k2, v2)| v2 <=> v1 }
-      @sort.each do |del|
-        del.pop
-      end
-      @sort.flatten!
+    @b = Search.search(:word_cont_any => @search)
+    @before = @b.result
+    @r = Hash.new(0)
+    @before.each do |sum|
+      @r[sum.project_id] += sum.tfidf
     end
+    @sort = @r.sort{|(k1, v1), (k2, v2)| v2 <=> v1 }
+    @sort.each do |del|
+      del.pop
+    end
+    @sort.flatten!
   end
 
   private
