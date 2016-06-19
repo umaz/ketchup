@@ -21,10 +21,11 @@
       <% end %>
     </td>
     <td class="btn_right">
-      <%= button_to "お気に入り解除", {:action => "fav_remove", :data => key}, :remote => true, :class => "btn btn-danger fav-btn" %>
+      <%= button_to "お気に入り解除", {:action => "fav_remove", :data => key}, :remote => true, :onclick => "disable()", :class => "btn btn-danger fav-btn favorite_action" %>
     </td>
   </tr>
   <% end %>
 </table>
 <%= link_to 'トップ', index_path, :class => "btn btn-success" %>
 <%= stylesheet_link_tag "list", :media => "all" %>
+<%= javascript_include_tag "disable" %>

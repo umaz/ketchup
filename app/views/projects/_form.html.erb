@@ -21,7 +21,7 @@
     <%= f.select :kind, {"主食" => "主食", "軽食" => "軽食", "スイーツ" => "スイーツ", "ドリンク" => "ドリンク", "販売" => "販売", "展示" => "展示", "参加型" => "参加型", "ステージ" => "ステージ", "パフォーマンス" => "パフォーマンス", "その他" => "その他"}, {}, :class => "form-control" %>
   </div>
   <div class="input-group input_sub">
-    <%= f.submit '登録', :class => 'btn btn-primary' %>
+    <%= f.submit '登録', data: {:disable_with => '登録中', confirm: '登録希望をします。よろしいですか？'}, :class => 'btn btn-primary' %>
   </div>
 </div>
 <% end %>

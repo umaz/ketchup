@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
   get 'admin/word_list' => 'admin#word_list'
 
+  get 'fav' => 'projects#fav'
+
   get '/' => 'index#index'
 
   post 'fav_remove' => 'projects#fav_remove'
