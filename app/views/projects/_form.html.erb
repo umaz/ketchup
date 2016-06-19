@@ -1,13 +1,27 @@
 <%= form_for Project.new do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.label :kana %>
-  <%= f.text_field :kana %>
-  <%= f.label :about %>
-  <%= f.text_field :about %>
-  <%= f.label :detail %>
-  <%= f.text_area :detail %>
-  <%= f.label :kind %>
-  <%= f.select :kind, {"主食" => "主食", "軽食" => "軽食", "スイーツ" => "スイーツ", "ドリンク" => "ドリンク", "販売" => "販売", "展示" => "展示", "参加型" => "参加型", "ステージ" => "ステージ", "パフォーマンス" => "パフォーマンス", "その他" => "その他"} %>
-  <%= f.submit %>
+<div class="form-group">
+  <div class="input-group">
+    <%= f.label '名前' %>
+    <%= f.text_field :name, :class => "form-control" %>
+  </div>
+  <div class="input-group">
+    <%= f.label 'フリガナ' %>
+    <%= f.text_field :kana, :class => "form-control" %>
+  </div>
+  <div class="input-group">
+    <%= f.label '概要' %>
+    <%= f.text_field :about, :class => "form-control" %>
+  </div>
+  <div class="input-group">
+    <%= f.label '詳細' %>
+    <%= f.text_area :detail, :class => "form-control" %>
+  </div>
+  <div class="input-group">
+    <%= f.label 'カテゴリー' %>
+    <%= f.select :kind, {"主食" => "主食", "軽食" => "軽食", "スイーツ" => "スイーツ", "ドリンク" => "ドリンク", "販売" => "販売", "展示" => "展示", "参加型" => "参加型", "ステージ" => "ステージ", "パフォーマンス" => "パフォーマンス", "その他" => "その他"}, {}, :class => "form-control" %>
+  </div>
+  <div class="input-group">
+    <%= f.submit '登録', :class => 'btn btn-primary' %>
+  </div>
+</div>
 <% end %>

@@ -51,7 +51,7 @@ before_action :set_project, only: [:detail, :edit]
     @tfidf = Hash.new { |h,k| h[k] = {} }
     @projects = Project.all
     @projects.each do |s|
-      @word = (s.name + "," * 100) + (s.about + "," * 10) + s.detail
+      @word = (s.name + "," * 100) + (s.about + "," * 10) + s.kana + "," + s.detail
       @result = mecab.parse(@word)
       @result = @result.split(/\$\$/)
       @ti = @result.select do |word|

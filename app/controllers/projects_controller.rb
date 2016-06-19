@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
     fav_list
     detail
     search
-    @sort.shift
+    @sort.delete(params[:id].to_i)
     if @sort.empty?
       @q = Project.search(:id_eq => 0)
       @projects = @q.result.page(params[:page])
@@ -102,16 +102,24 @@ class ProjectsController < ApplicationController
   end
 
   def conversion
-    mecab = Natto::MeCab.new(node_format:'%m$$', unk_format:"%M$$", eos_format:"")
+    mecab = Natto::MeCab.new(node_format:'%m,%f[6],%f[7],%f[8],%f[0]$$', unk_format:"%M,名詞$$", eos_format:"")
     @value = params[:q][:name]
     @result = mecab.parse(@value)
-    @search = @result.split(/\$\$/)
-    @search.map! do |del|
-      del.gsub(/\s|　/,"")
-    end
-    @search.delete_if do |del|
-      del =~ /^$/
-    end
+    @result = @result.split(/\$\$/)
+      @s = @result.select do |word|
+      word =~ /,名詞|,動詞|,形容詞/
+      end
+      @s.map! do |str|
+        str.split(/,/)
+      end
+      @s.each do |pop|
+        pop.pop
+      end
+      @s.flatten!
+      @search = @s.uniq
+      @search.delete_if do |del|
+        del =~ /^$|\.|\(|\)/
+      end
   end
 
   def detail
@@ -136,17 +144,21 @@ class ProjectsController < ApplicationController
   end
 
   def search
-    @b = Search.search(:word_cont_any => @search)
-    @before = @b.result
-    @r = Hash.new(0)
-    @before.each do |sum|
-      @r[sum.project_id] += sum.tfidf
+    if @search.empty?
+      @sort = []
+    else
+      @b = Search.search(:word_cont_any => @search)
+      @before = @b.result
+      @r = Hash.new(0)
+      @before.each do |sum|
+        @r[sum.project_id] += sum.tfidf
+      end
+      @sort = @r.sort{|(k1, v1), (k2, v2)| v2 <=> v1 }
+      @sort.each do |del|
+        del.pop
+      end
+      @sort.flatten!
     end
-    @sort = @r.sort{|(k1, v1), (k2, v2)| v2 <=> v1 }
-    @sort.each do |del|
-      del.pop
-    end
-    @sort.flatten!
   end
 
   private

@@ -3,10 +3,10 @@
   <p>筑波大学用語辞典</p>
 </div>
 </header>
-<%= image_tag 'image.png' , :width => '250', :height => '100'%>
-<h1><%= link_to index_path, :class => 'top' do %>
-    お気に入り
-    <% end %></h1>
+<%= link_to index_path, :class => 'top' do %>
+  <%= image_tag 'image.png' , :width => '250', :height => '100'%>
+<% end %>
+<h1>お気に入り</h1>
 <%= link_to 'トップ', index_path, :class => "btn btn-success" %>
 <table id="fav_list" class="table table-striped">
   <tr>

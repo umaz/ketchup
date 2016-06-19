@@ -3,10 +3,10 @@
   <p>筑波大学用語辞典</p>
 </div>
 </header>
-<%= image_tag 'image.png' , :width => '250', :height => '100'%>
-<h1><%= link_to index_path, :class => 'top' do %>
-  検索結果一覧
-<% end %></h1>
+<%= link_to index_path, :class => 'top' do %>
+  <%= image_tag 'image.png' , :width => '250', :height => '100'%>
+<% end %>
+<h1>検索結果一覧</h1>
 <%= search_form_for @q do |f| %>
 <div class="form-group">
   <div class="input-group">
@@ -19,15 +19,12 @@
   </div>
 </div>
 <% end %>
-
 <%= link_to 'トップ', index_path, :class => "btn btn-success" %>
-<div class="project_num">
 <% if @projects.size == 0 %>
   該当データがありません
 <% else %>
   <%= page_entries_info @projects %>
 <% end %>
-</div>
 <%= paginate @projects %>
 <table id="list_fav" class="table table-striped">
   <tr>
@@ -43,9 +40,9 @@
           <td><%= link_to project.kind, project_path(project.id) %></td>
           <td id=<%= project.id %>>
             <% if @lists.include?(project.id.to_s) %>
-              <%= button_to "お気に入り解除", {:action => "fav_remove", :data => project.id}, :remote => true, :onClick => "fav(0)", :class => "btn btn-danger" %>
+              <%= button_to "お気に入り解除", {:action => "fav_remove", :data => project.id}, :remote => true, :onClick => "disabled = true;", :class => "btn btn-danger" %>
             <% else %>
-              <%= button_to "お気に入り登録", {:action => "fav", :data => project.id}, :remote => true, :onClick => "fav(1)", :class => "btn btn-warning" %>
+              <%= button_to "お気に入り登録", {:action => "fav", :data => project.id}, :remote => true, :onsubmit => "disabled = true;", :class => "btn btn-warning" %>
             <% end %>
             <i class='glyphicon glyphicon-star'></i><span id="count"><%= project.count %></span>
           </td>

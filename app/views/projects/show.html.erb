@@ -3,7 +3,9 @@
   <p>筑波大学用語辞典</p>
 </div>
 </header>
-<%= image_tag 'image.png' , :width => '250', :height => '100'%>
+<%= link_to index_path, :class => 'top' do %>
+  <%= image_tag 'image.png' , :width => '250', :height => '100'%>
+<% end %>
 <div class="info_detail">
 <h1><%= @project.name %></h1>
 <h3><%= @project.about %></h3>
