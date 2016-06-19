@@ -3,8 +3,7 @@ default: &default
   encoding: utf8
   reconnect: false
   pool: 5
-  socket: /var/run/mysqld/mysqld.soc/var/run/mysqld/mysqld.sock
-k
+  socket: /var/run/mysqld/mysqld.soc
 
 development:
   <<: *default
