@@ -109,3 +109,6 @@ a.top, a:link.top, a:visited.top, a:hover.top, a:active.top{
 .form-control {
   height: 46px;
 }
+a.btn-info {
+  margin: 0;
+}
