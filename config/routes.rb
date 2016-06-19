@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   get '/' => 'index#index'
 
+  get 'refine' => 'projects#refine'
+
   post 'fav_remove' => 'projects#fav_remove'
 
   post 'fav_remove' => 'index#fav_remove'

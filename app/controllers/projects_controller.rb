@@ -1,38 +1,58 @@
 class ProjectsController < ApplicationController
   def index
-    if session[:back] == nil
-      if params.include?(:q)
-        if params[:q].include?(:name)
-          if params[:q][:name] == ""
-            @q = Project.search(params[:q])
-            @projects = @q.result.page(params[:page])
-          else
-            conversion
-            search
-            @q = Project.search(:id_eq_any => @sort, :s => params[:q][:s])
-            if @sort.empty?
-              @q = Project.search(:id_eq => 0)
+    if params[:kind] != nil
+      if session[:back] == nil
+        @value = params[:kind]
+        if params.include?(:q)
+          @q = Project.search(:kind1_or_kind2_eq => params[:kind], :s => params[:q][:s])
+        else
+          @q = Project.search(:kind1_or_kind2_eq => params[:kind])
+        end
+          @projects = @q.result.page(params[:page])
+      else
+        @s = session[:back]
+        if params.include?(:q)
+          @q = Project.search(:id_eq_any => @s, :s => params[:q][:s])
+        else
+          @q = Project.search(:id_eq_any => @s)
+        end
+        @projects = Project.page(params[:page]).where(id: @s).where(id: @s).order("field(id, #{@s.join(',')})")
+      end
+    else
+      if session[:back] == nil
+        if params.include?(:q)
+          if params[:q].include?(:name)
+            if params[:q][:name] == ""
+              @q = Project.search(params[:q])
               @projects = @q.result.page(params[:page])
             else
-              if @q.sorts.empty?
-                @projects = Project.page(params[:page]).where(id: @sort).where(id: @sort).order("field(id, #{@sort.join(',')})")
-              else
+              conversion
+              search
+              @q = Project.search(:id_eq_any => @sort, :s => params[:q][:s])
+              if @sort.empty?
+                @q = Project.search(:id_eq => 0)
                 @projects = @q.result.page(params[:page])
+              else
+                if @q.sorts.empty?
+                  @projects = Project.page(params[:page]).where(id: @sort).where(id: @sort).order("field(id, #{@sort.join(',')})")
+                else
+                  @projects = @q.result.page(params[:page])
+                end
               end
             end
+          else
+            @q = Project.search(params[:q])
+            @projects = @q.result.page(params[:page])
           end
         else
           @q = Project.search(params[:q])
           @projects = @q.result.page(params[:page])
         end
       else
-        @q = Project.search(params[:q])
-        @projects = @q.result.page(params[:page])
+        @s = session[:back]
+        @q = Project.search(:id_eq_any => @s, :s => params[:q][:s])
+        @projects = Project.where(id: @s).where(id: @s).order("field(id, #{@s.join(',')})")
       end
-    else
-      @s = session[:back]
-      @q = Project.search(:id_eq_any => @s, :s => params[:q][:s])
-      @projects = Project.where(id: @s).where(id: @s).order("field(id, #{@s.join(',')})")
     end
     session[:back] = nil
     fav_list
@@ -47,11 +67,17 @@ class ProjectsController < ApplicationController
     @sort.delete(params[:id].to_i)
     if @sort.empty?
       @q = Project.search(:id_eq => 0)
-      @projects = @q.result.page(params[:page])
+      @projects = @q.result
     else
       @sort = @sort.take(5)
-      @projects = Project.page(params[:page]).where(id: @sort).where(id: @sort).order("field(id, #{@sort.join(',')})")
+      @projects = Project.where(id: @sort).where(id: @sort).order("field(id, #{@sort.join(',')})")
     end
+  end
+
+  def refine
+    @q = Project.search(:kind1_or_kind2_eq => params[:data])
+    @projects = @q.result.page(params[:page])
+    fav_list
   end
 
   def fav
@@ -65,7 +91,10 @@ class ProjectsController < ApplicationController
     cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
     count = @project.count
     Project.update(@project.id, :count => count + 1)
-    session[:back] = params[:data][:before]
+    if params[:data][:before] == ""
+    else
+      session[:back] = params[:data][:before]
+    end
     redirect_to(:back)
   end
 
@@ -76,7 +105,10 @@ class ProjectsController < ApplicationController
     key = JSON.parse(cookies[:fav])
     key.delete(params[:data][:id])
     cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
-    session[:back] = params[:data][:before]
+    if params[:data][:before] == ""
+    else
+      session[:back] = params[:data][:before]
+    end
     redirect_to(:back)
   end
 
@@ -111,9 +143,12 @@ class ProjectsController < ApplicationController
   end
 
   def conversion
+    require 'nkf'
     mecab = Natto::MeCab.new(node_format:'%m$$', unk_format:"%M$$", eos_format:"")
-    @value = params[:q][:name]
-    @result = mecab.parse(@value)
+    @kana = NKF.nkf('-w -h2', params[:q][:name])
+    @value = NKF.nkf('-w -m0Z1', params[:q][:name])
+    @word = @value + ' ' + @kana
+    @result = mecab.parse(@kana)
     @search = @result.split(/\$\$/)
     @search.map! do |del|
       del.gsub(/\s|　/,"")

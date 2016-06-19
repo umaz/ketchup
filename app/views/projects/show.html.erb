@@ -10,18 +10,18 @@
 <h1><%= @project.name %></h1>
 <h3><%= @project.about %></h3>
 <p><%= simple_format(@project.detail.gsub(/\\n/, "\n")) %></p>
-<p>カテゴリー：<%= @project.kind %></p>
+<p>大カテゴリー：<%= link_to @project.kind1, projects_path(kind: @project.kind1) %></p>
+<p>小カテゴリー：<%= link_to @project.kind2,  projects_path(kind: @project.kind2) %></p>
 </div>
 <div id="fav_detail" class="center">
   <% if @lists.include?(@project.id.to_s) %>
-    <%= button_to "お気に入り解除", {:action => "fav_remove", :data => @project.id}, :remote => true, :onclick => "disable()", :class => "btn btn-danger favorite_action" %>
+    <%= button_to "お気に入り解除", {:action => "fav_remove", :data => {:id => @project.id, :before => nil}}, :remote => true, :onclick => "disable()", :class => "btn btn-danger favorite_action" %>
   <% else %>
-    <%= button_to "お気に入り登録", {:action => "fav", :data => @project.id}, :remote => true, :onclick => "disable()", :class => "btn btn-warning favorite_action" %>
+    <%= button_to "お気に入り登録", {:action => "fav", :data => {:id => @project.id, :before => nil}}, :remote => true, :onclick => "disable()", :class => "btn btn-warning favorite_action" %>
   <% end %>
   <i class='glyphicon glyphicon-star'></i>
   <%= @project.count %>
 </div>
-<%= paginate @projects %>
 <table id="list_fav" class="table table-striped">
   <tr>
     <th>似ているワード</th>
@@ -32,7 +32,6 @@
         </tr>
   <% end %>
 </table>
-<%= paginate @projects %>
 
 <%= link_to '前のページへ戻る', :back, :class => "btn btn-primary" %>
 <%= link_to 'トップ', index_path, :class => "btn btn-success" %>

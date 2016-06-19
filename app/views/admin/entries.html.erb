@@ -1,17 +1,34 @@
+<header>
+  <div class="title">
+  <p>筑波大学用語辞典</p>
+</div>
+</header>
+<%= link_to admin_index_path, :class => 'top' do %>
+  <%= image_tag 'image.png' , :width => '250', :height => '100'%>
+<% end %>
 <h1>申請一覧</h1>
 <table id="list_fav" class="table table-striped">
   <tr>
     <th>用語名</th>
     <th>概要</th>
-    <th>カテゴリー</th>
+    <th>大カテゴリー</th>
+    <th>小カテゴリー</th>
   </tr>
   <% @entry.each do |project| %>
   <tr>
     <td><%= link_to project.name, approval_path(project.id) %></td>
     <td><%= link_to project.about, approval_path(project.id) %></td>
-    <td><%= link_to project.kind, approval_path(project.id) %></td>
+    <td><%= link_to project.kind1, approval_path(project.id) %></td>
+    <td><%= link_to project.kind2, approval_path(project.id) %></td>
   </tr>
   <% end %>
 </table>
-<%= button_to '更新', {:action => 'make'}, data: {:disable_with => '更新中', confirm: "TFIDFの更新を行います。この作業には3分ほどかかります。"}, :class => "btn btn-danger" %>
-<%= link_to 'トップ', admin_index_path, :class => "btn btn-success" %>
+<ul class="inline-block">
+  <li>
+    <%= button_to '更新', {:action => 'make'}, data: {:disable_with => '更新中', confirm: "TFIDFの更新を行います。この作業には3分ほどかかります。"}, :class => "btn btn-danger" %>
+  </li>
+  <li>
+    <%= link_to 'トップ', admin_index_path, :class => "btn btn-success" %>
+  </li>
+</ul>
+<%= stylesheet_link_tag "detail", :media=> "all" %>
