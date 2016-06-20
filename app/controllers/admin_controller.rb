@@ -135,5 +135,4 @@ before_action :set_project, only: [:detail, :edit]
       end
     end
   end
-=end
 end
