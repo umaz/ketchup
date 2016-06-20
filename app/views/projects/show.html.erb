@@ -8,7 +8,6 @@
 <% end %>
 <div class="info_detail">
 <h1><%= @project.name %></h1>
-<h3><%= @project.about %></h3>
 <p><%= simple_format(@project.detail.gsub(/\\n/, "\n")) %></p>
 <p>大カテゴリー：<%= link_to @project.kind1, projects_path(kind: @project.kind1) %></p>
 <p>小カテゴリー：<%= link_to @project.kind2,  projects_path(kind: @project.kind2) %></p>
