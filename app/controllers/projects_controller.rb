@@ -58,6 +58,8 @@ class ProjectsController < ApplicationController
     fav_list
     if cookies[:kind] == nil
       @project = Project.all.sample
+    elsif cookies[:kind] == ""
+      @project = Project.all.sample
     else
       @project = Project.where(kind1: cookies[:kind].split(/&/)).sample
     end
@@ -126,6 +128,13 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Entry.new
+    @kind1s = Kind1.all
+  end
+
+  def kind2_select
+    @kind2s = Kind2.where(kind1_id: params[:kind1_id]).pluck(:kind2, :id)
+   # 初期値
+    @kind2s.unshift(["選択してください。", ""])
   end
 
   def create
@@ -205,14 +214,7 @@ class ProjectsController < ApplicationController
       if params[:checked_param].include?('全て')
         cookies.permanent[:kind] = nil
       else
-        params[:checked_param].map! do |i|
-          if i != 'その他'
-            i = i
-          else
-            i = ""
-          end
-        end
-          cookies.permanent[:kind] = params[:checked_param]
+        cookies.permanent[:kind] = params[:checked_param]
       end
     else
       cookies.permanent[:kind] = nil

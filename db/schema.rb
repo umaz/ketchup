@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160619181837) do
+ActiveRecord::Schema.define(version: 20160620035541) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -30,6 +30,19 @@ ActiveRecord::Schema.define(version: 20160619181837) do
     t.string   "synonym",    limit: 255
     t.string   "kind1",      limit: 255
     t.string   "kind2",      limit: 255
+  end
+
+  create_table "kind1s", force: :cascade do |t|
+    t.string   "kind1",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "kind2s", force: :cascade do |t|
+    t.integer  "kind1_id",   limit: 4
+    t.string   "kind2",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "projects", force: :cascade do |t|

@@ -18,11 +18,11 @@
   </div>
   <div class="input-group">
     <%= f.label '大カテゴリー' %>
-    <%= f.select :kind1, {"主食" => "主食", "軽食" => "軽食", "スイーツ" => "スイーツ", "ドリンク" => "ドリンク", "販売" => "販売", "展示" => "展示", "参加型" => "参加型", "ステージ" => "ステージ", "パフォーマンス" => "パフォーマンス", "その他" => "その他"}, {}, :class => "form-control" %>
+    <%= f.select :kind1, options_for_select(@kind1s.collect { |country| [country.kind1.titleize, country.id] }, 1), {}, { id: 'kind1s_select', :class => "form-control"} %>
   </div>
   <div class="input-group">
     <%= f.label '小カテゴリー' %>
-    <%= f.select :kind1, {"主食" => "主食", "軽食" => "軽食", "スイーツ" => "スイーツ", "ドリンク" => "ドリンク", "販売" => "販売", "展示" => "展示", "参加型" => "参加型", "ステージ" => "ステージ", "パフォーマンス" => "パフォーマンス", "その他" => "その他"}, {}, :class => "form-control" %>
+    <%= f.text_field :kind2, :placeholder => 'イタリアン サークル等', :class => "form-control" %>
   </div>
   <div class="input-group">
     <%= f.label '同義語、類義語' %>

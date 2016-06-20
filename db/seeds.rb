@@ -22,3 +22,11 @@ CSV.foreach('db/user.csv') do |row|
   User.create(:name => row[0], :password => row[1])
   Admin.create(:name => row[0], :password => row[1])
 end
+
+CSV.foreach('db/kind1.csv') do |row|
+  Kind1.create(:kind1 => row[0])
+end
+
+CSV.foreach('db/kind2.csv') do |row|
+  Kind2.create(:kind1_id => row[0], :kind2 => row[1])
+end

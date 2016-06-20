@@ -39,6 +39,7 @@ before_action :set_project, only: [:detail, :edit]
   end
 
   def edit
+    @kind1s = Kind1.all
   end
 
   def destroy
