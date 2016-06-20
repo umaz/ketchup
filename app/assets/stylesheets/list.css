@@ -46,3 +46,6 @@ ul.pagination {
   display: inline-block;
   margin-left: 40px;
 }
+a.btn-success {
+  margin-left: 4%;
+}
