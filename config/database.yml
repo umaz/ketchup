@@ -11,13 +11,13 @@ development:
   username: silk01
   password: KeTchUp
 
- test:
+test:
   <<: *default
   database: db_test
   username: silk01
   password: KeTchUp
 
- production:
+production:
   <<: *default
   database: db_production
   username: omelette_rice
