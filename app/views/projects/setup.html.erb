@@ -1,0 +1,18 @@
+<header>
+  <div class="title">
+  <p>筑波大学用語辞典</p>
+</div>
+</header>
+<%= link_to index_path, :class => 'top' do %>
+  <%= image_tag 'image.png' , :width => '250', :height => '100'%>
+<% end %>
+<h1>設定</h1>
+<% items = ['イベント', 'ショッピングモール', 'スーパーマーケット', '飲食店', '図書館', '団体', '地名', 'その他'] %>
+<%= form_tag('/kind') do %>
+  <% items.each do |item| %>
+  <label>
+    <%= check_box_tag("checked_param[]", item ) %><%= item %>
+  </label>
+  <% end %>
+  <%= submit_tag "設定" %>
+<% end %>

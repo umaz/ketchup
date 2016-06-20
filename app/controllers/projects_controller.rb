@@ -56,7 +56,11 @@ class ProjectsController < ApplicationController
     end
     session[:back] = nil
     fav_list
-    @project = Project.all.sample
+    if cookies[:kind].empty?
+      @project = Project.all.sample
+    else
+      @project = Project.where(kind1: cookies[:kind]).sample
+    end
   end
 
   def show
@@ -191,6 +195,27 @@ class ProjectsController < ApplicationController
       del.pop
     end
     @sort.flatten!
+  end
+
+  def setup
+  end
+
+  def kind
+    if params.include?("checked_param")
+      if params[:checked_param].include?("全て")
+        cookies.permanent[:kind] = nil
+      else
+        params[:checked_param].map! do |i|
+          if i == "その他"
+            i = ""
+          end
+          cookies.permanent[:kind] = params[:checked_param]
+        end
+      end
+    else
+      cookies.permanent[:kind] = nil
+    end
+    redirect_to index_path
   end
 
   private
