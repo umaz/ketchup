@@ -56,14 +56,12 @@ class ProjectsController < ApplicationController
     end
     session[:back] = nil
     fav_list
-    if cookies.include?("kind")
-      if cookies[:kind].empty?
-        @project = Project.all.sample
-      else
-        @project = Project.where(kind1: cookies[:kind]).sample
-      end
-    else
+    if cookies[:kind].empty?
       @project = Project.all.sample
+    elsif cookies[:kind] == nil
+      @project = Project.all.sample
+    else
+      @project = Project.where(kind1: cookies[:kind].split(/&/)).sample
     end
   end
 
@@ -205,16 +203,18 @@ class ProjectsController < ApplicationController
   end
 
   def kind
-    if params.include?("checked_param")
-      if params[:checked_param].include?("全て")
+    if params.include?('checked_param')
+      if params[:checked_param].include?('全て')
         cookies.permanent[:kind] = nil
       else
         params[:checked_param].map! do |i|
-          if i == "その他"
+          if i != 'その他'
+            i = i
+          else
             i = ""
           end
-          cookies.permanent[:kind] = params[:checked_param]
         end
+          cookies.permanent[:kind] = params[:checked_param]
       end
     else
       cookies.permanent[:kind] = nil
