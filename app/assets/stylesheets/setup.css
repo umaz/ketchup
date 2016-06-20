@@ -1,0 +1,20 @@
+h1 {
+  color: rgb(238, 150, 57);
+  text-align: center;
+  margin: 0 0 40px 0;
+  vertical-align: middle;
+}
+.category_select {
+  text-align: center;
+}
+h2 {
+  margin-bottom: 30px;
+  font-size: 25px;
+}
+label {
+  margin-right: 5px;
+  font-size: 15px;
+}
+span {
+  font-size: 20px;
+}

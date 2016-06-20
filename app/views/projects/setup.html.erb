@@ -7,7 +7,8 @@
   <%= image_tag 'image.png' , :width => '250', :height => '100'%>
 <% end %>
 <h1>設定</h1>
-<h2>トップページに表示するカテゴリーを選択してください</h2>
+<div class="category_select">
+<h2>トップページに表示するワードのカテゴリーを選択してください<br /><span>（複数回答可）</span></h2>
 <% items = ['全て', 'イベント', 'ショッピングモール', 'スーパーマーケット', '飲食店', '図書館', '団体', '地名', 'その他'] %>
 <%= form_tag('/kind') do %>
   <% items.each do |item| %>
@@ -17,3 +18,6 @@
   <% end %>
   <%= submit_tag "設定" %>
 <% end %>
+</div>
+
+<%= stylesheet_link_tag "setup", :media => "all" %>
