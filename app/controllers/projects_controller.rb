@@ -56,9 +56,7 @@ class ProjectsController < ApplicationController
     end
     session[:back] = nil
     fav_list
-    if cookies[:kind].empty?
-      @project = Project.all.sample
-    elsif cookies[:kind] == nil
+    if cookies[:kind] == nil
       @project = Project.all.sample
     else
       @project = Project.where(kind1: cookies[:kind].split(/&/)).sample
