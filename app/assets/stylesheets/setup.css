@@ -10,10 +10,13 @@ h1 {
 h2 {
   margin-bottom: 30px;
   font-size: 25px;
+  color: rgb(128, 106, 87);
 }
 label {
   margin-right: 5px;
   font-size: 15px;
+  color: rgb(84, 73, 64);
+
 }
 span {
   font-size: 20px;
