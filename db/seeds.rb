@@ -17,3 +17,8 @@ CSV.foreach('db/data1.csv') do |row|
 	end
   Project.create(:name => row[0], :kana => row[1], :about => row[2], :detail => row[3], :synonym => row[4], :kind1 => row[5], :kind2 => row[6], :count => row[7])
 end
+
+CSV.foreach('db/user.csv') do |row|
+  User.create(:name => row[0], :password => row[1])
+  Admin.create(:name => row[0], :password => row[1])
+end
