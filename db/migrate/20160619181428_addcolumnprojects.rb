@@ -1,4 +1,4 @@
-class Addcolumnprojects < ActiveRecord::Migration
+class Addcolumnprojects < ActiveRecord::Migration[4.2]
   def change
     add_column :projects, :synonym, :string
     add_column :projects, :kind1, :string

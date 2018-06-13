@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,66 +10,66 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620035541) do
+ActiveRecord::Schema.define(version: 2016_06_20_035541) do
 
-  create_table "admins", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "password",   limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  create_table "admins", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "entries", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "kana",       limit: 255
-    t.string   "about",      limit: 255
-    t.text     "detail",     limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.string   "synonym",    limit: 255
-    t.string   "kind1",      limit: 255
-    t.string   "kind2",      limit: 255
+  create_table "entries", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "kana"
+    t.string "about"
+    t.text "detail"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "synonym"
+    t.string "kind1"
+    t.string "kind2"
   end
 
-  create_table "kind1s", force: :cascade do |t|
-    t.string   "kind1",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  create_table "kind1s", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "kind1"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "kind2s", force: :cascade do |t|
-    t.integer  "kind1_id",   limit: 4
-    t.string   "kind2",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  create_table "kind2s", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "kind1_id"
+    t.string "kind2"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "projects", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "kana",       limit: 255
-    t.string   "about",      limit: 255
-    t.text     "detail",     limit: 65535
-    t.integer  "count",      limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.string   "synonym",    limit: 255
-    t.string   "kind1",      limit: 255
-    t.string   "kind2",      limit: 255
+  create_table "projects", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "kana"
+    t.string "about"
+    t.text "detail"
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "synonym"
+    t.string "kind1"
+    t.string "kind2"
   end
 
-  create_table "searches", force: :cascade do |t|
-    t.integer  "project_id", limit: 4
-    t.text     "word",       limit: 65535
-    t.float    "tfidf",      limit: 24
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+  create_table "searches", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "project_id"
+    t.text "word"
+    t.float "tfidf"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "password",   limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

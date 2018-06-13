@@ -1,4 +1,4 @@
-class Deletekind < ActiveRecord::Migration
+class Deletekind < ActiveRecord::Migration[4.2]
   def up
     remove_column :projects, :kind
     remove_column :entries, :kind

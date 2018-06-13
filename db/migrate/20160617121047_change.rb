@@ -1,4 +1,4 @@
-class Change < ActiveRecord::Migration
+class Change < ActiveRecord::Migration[4.2]
   def up
     change_column :searches, :tfidf, :float
   end

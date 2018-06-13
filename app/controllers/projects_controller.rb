@@ -94,9 +94,10 @@ class ProjectsController < ApplicationController
       key = JSON.parse(cookies[:fav])
     end
     key[@project.id] = @project.name
-    cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
+    cookies[:fav] = {:value => key.to_json }
     count = @project.count
     Project.update(@project.id, :count => count + 1)
+    p params
     if params[:data][:before] == ""
     else
       session[:back] = params[:data][:before]
@@ -110,7 +111,7 @@ class ProjectsController < ApplicationController
     Project.update(@project.id, :count => count - 1)
     key = JSON.parse(cookies[:fav])
     key.delete(params[:data][:id])
-    cookies[:fav] = {:value => key.to_json, :expires => 20.year.from_now }
+    cookies[:fav] = {:value => key.to_json }
     if params[:data][:before] == ""
     else
       session[:back] = params[:data][:before]

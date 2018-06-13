@@ -1,6 +1,5 @@
 class AdminController < ApplicationController
-before_filter :auth
-before_action :set_project, only: [:detail, :edit]
+before_action :auth, :set_project, only: [:detail, :edit]
 
   def index
   end

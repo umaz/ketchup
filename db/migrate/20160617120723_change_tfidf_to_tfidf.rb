@@ -1,4 +1,4 @@
-class ChangeTfidfToTfidf < ActiveRecord::Migration
+class ChangeTfidfToTfidf < ActiveRecord::Migration[4.2]
   def up
     change_column :searches, :tfidf, :float
   end
