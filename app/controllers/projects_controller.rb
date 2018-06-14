@@ -67,9 +67,9 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
-    fav_list
     detail
     search
+    fav_list
     @sort.delete(params[:id].to_i)
     if @sort.empty?
       @q = Project.search(:id_eq => 0)
@@ -94,15 +94,12 @@ class ProjectsController < ApplicationController
       key = JSON.parse(cookies[:fav])
     end
     key[@project.id] = @project.name
-    cookies[:fav] = {:value => key.to_json }
+    cookies.permanent[:fav] = {:value => key.to_json}
     count = @project.count
     Project.update(@project.id, :count => count + 1)
-    p params
-    if params[:data][:before] == ""
-    else
-      session[:back] = params[:data][:before]
+    respond_to do |format|
+      format.js {render inline: "location.reload();" }
     end
-    redirect_to(:back)
   end
 
   def fav_remove
@@ -111,12 +108,10 @@ class ProjectsController < ApplicationController
     Project.update(@project.id, :count => count - 1)
     key = JSON.parse(cookies[:fav])
     key.delete(params[:data][:id])
-    cookies[:fav] = {:value => key.to_json }
-    if params[:data][:before] == ""
-    else
-      session[:back] = params[:data][:before]
+    cookies.permanent[:fav] = {:value => key.to_json}
+    respond_to do |format|
+      format.js {render inline: "location.reload();" }
     end
-    redirect_to(:back)
   end
 
   def fav_list
