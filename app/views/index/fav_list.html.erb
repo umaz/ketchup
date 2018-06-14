@@ -21,7 +21,7 @@
       <% end %>
     </td>
     <td class="btn_right">
-      <%= button_to "お気に入り解除", {:action => "fav_remove", :data => key}, :remote => true, :onclick => "disable()", :class => "btn btn-danger fav-btn favorite_action" %>
+      <%= button_to "お気に入り解除", {:action => "fav_remove", :data => {:id => key}}, :remote => true, :onclick => "disable()", :class => "btn btn-danger fav-btn favorite_action" %>
     </td>
   </tr>
   <% end %>
