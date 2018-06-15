@@ -1,0 +1,24 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  pool: 5
+  socket: /var/run/mysqld/mysqld.sock
+
+development:
+  <<: *default
+  database: db_development
+  username: silk01
+  password: KeTchUp
+
+test:
+  <<: *default
+  database: db_test
+  username: silk01
+  password: KeTchUp
+
+production:
+  <<: *default
+  database: db_production
+  username: omelette_rice
+  password: KeTchUp

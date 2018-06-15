@@ -1,0 +1,36 @@
+<%= form_for @project do |f| %>
+<div class="form-group">
+  <div class="input-group">
+    <%= f.label '名前' %>
+    <%= f.text_field :name, :placeholder => 'KeTchUp', :class => "form-control" %>
+  </div>
+  <div class="input-group">
+    <%= f.label 'フリガナ' %>
+    <%= f.text_field :kana, :placeholder => 'ケチャップ', :class => "form-control" %>
+  </div>
+  <div class="input-group">
+    <%= f.label '概要' %>
+    <%= f.text_field :about, :placeholder => 'おむらいすが製作した筑波大学用語辞典', :class => "form-control" %>
+  </div>
+  <div class="input-group">
+    <%= f.label '詳細' %>
+    <%= f.text_area :detail, :class => "form-control" %>
+  </div>
+  <div class="input-group">
+    <%= f.label '大カテゴリー' %>
+    <%= f.select :kind1, options_for_select(@kind1s.collect { |country| [country.kind1.titleize, country.id] }, 1), {}, { id: 'kind1s_select', :class => "form-control"} %>
+  </div>
+  <div class="input-group">
+    <%= f.label '小カテゴリー' %>
+    <%= f.text_field :kind2, :placeholder => 'イタリアン サークル等', :class => "form-control" %>
+  </div>
+  <div class="input-group">
+    <%= f.label '同義語、類義語' %>
+    <%= f.text_field :synonym, :placeholder => '辞書 辞典 事典 Webアプリケージョン', :class => "form-control" %>
+  </div>
+  <div class="input-group input_sub">
+    <%= f.submit '更新', data: {:disable_with => '更新中', confirm: '内容を更新します'}, :class => 'btn btn-primary' %>
+  </div>
+</div>
+<% end %>
+<%= stylesheet_link_tag "form", :media => "all" %>

@@ -1,0 +1,21 @@
+body {
+
+}
+
+h1 {
+  color: rgb(238, 150, 57);
+  text-align: center;
+  margin: 0 0 30px 0;
+  vertical-align: middle;
+}
+.info_detail {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.info_detail > p {
+  font-size: 20px;
+}
+a.btn-success {
+  margin: 0;
+}

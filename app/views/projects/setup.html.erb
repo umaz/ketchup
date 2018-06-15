@@ -1,0 +1,23 @@
+<header>
+  <div class="title">
+  <p>筑波大学用語辞典</p>
+</div>
+</header>
+<%= link_to index_path, :class => 'top' do %>
+  <%= image_tag 'image.png' , :width => '250', :height => '100'%>
+<% end %>
+<h1>設定</h1>
+<div class="category_select">
+<h2>トップページに表示するワードのカテゴリーを選択してください<br /><span>（複数回答可）</span></h2>
+<% items = ['全て', 'イベント', 'ショッピングモール', 'スーパーマーケット', '飲食店', '図書館', '団体', '地名', 'その他'] %>
+<%= form_tag('/kind') do %>
+  <% items.each do |item| %>
+  <label>
+    <%= check_box_tag("checked_param[]", item ) %><%= item %>
+  </label>
+  <% end %>
+  <%= submit_tag "設定", :class => "btn btn-primary" %>
+<% end %>
+</div>
+
+<%= stylesheet_link_tag "setup", :media => "all" %>

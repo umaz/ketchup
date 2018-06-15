@@ -1,0 +1,56 @@
+<header>
+  <div class="title">
+  <p>筑波大学用語辞典</p>
+</div>
+</header>
+<%= link_to index_path, :class => 'top' do %>
+  <%= image_tag 'image.png' , :width => '250', :height => '100'%>
+<% end %>
+<h1>検索結果一覧</h1>
+<%= search_form_for @q do |f| %>
+<div class="form-group">
+  <div class="input-group">
+    <%= f.text_field :name, :class => "form-control", :value => @value %>
+    <span class="input-group-btn">
+      <%= button_tag( class: "btn btn-primary", value: "search") do %>
+        <%= content_tag :span, "検索", class: "glyphicon glyphicon-search" %>
+      <% end %>
+    </span>
+  </div>
+</div>
+<% end %>
+<%= link_to 'トップ', index_path, :class => "btn btn-success" %>
+<% if @projects.size == 0 %>
+  該当データがありません
+<% else %>
+  <%= page_entries_info @projects %>
+<% end %>
+<%= paginate @projects %>
+<table id="list_fav" class="table table-striped">
+  <tr>
+    <th><%= sort_link @q, :name, '用語名' %></th>
+    <th><%= sort_link @q, :about, '概要' %></th>
+    <th><%= sort_link @q, :kind1, '大カテゴリー' %></th>
+    <th><%= sort_link @q, :kind2, '小カテゴリー' %></th>
+    <th><%= sort_link @q, :count, 'お気に入り' %></th>
+  </tr>
+  <% @projects.each do |project| %>
+  <tr>
+    <td><%= link_to project.name, project_path(project.id) %></td>
+    <td><%= link_to project.about, project_path(project.id) %></td>
+    <td><%= link_to project.kind1, project_path(project.id) %></td>
+    <td><%= link_to project.kind2, project_path(project.id) %></td>
+    <td>
+      <% if @lists.include?(project.id.to_s) %>
+        <%= button_to "お気に入り解除", {:action => "fav_remove", :data => {:id => project.id, :before => @projects.ids}}, :remote => true, :onclick => "disable()", :class => "btn btn-danger favorite_action" %>
+      <% else %>
+        <%= button_to "お気に入り登録", {:action => "fav", :data => {:id => project.id, :before => @projects.ids}}, :remote => true, :onclick => "disable(1)", :class => "btn btn-warning favorite_action" %>
+      <% end %>
+        <i class='glyphicon glyphicon-star'></i><span id="count"><%= project.count %></span>
+    </td>
+  </tr>
+  <% end %>
+</table>
+<%= paginate @projects %>
+<%= stylesheet_link_tag "list", :media => "all" %>
+<%= javascript_include_tag "disable" %>

@@ -1,0 +1,31 @@
+<header>
+  <div class="title">
+  <p>筑波大学用語辞典</p>
+</div>
+</header>
+<%= link_to index_path, :class => 'top' do %>
+  <%= image_tag 'image.png' , :width => '250', :height => '100'%>
+<% end %>
+<h1>お気に入り</h1>
+
+<table id="fav_list" class="table table-striped">
+  <tr>
+    <th>お気に入り一覧</th>
+    <th></th>
+  </tr>
+  <% @lists.each do |key, val| %>
+  <tr>
+    <td class="fav_all">
+      <%= link_to project_path(key) do %>
+        <%= val %>
+      <% end %>
+    </td>
+    <td class="btn_right">
+      <%= button_to "お気に入り解除", {:action => "fav_remove", :data => {:id => key}}, :remote => true, :onclick => "disable()", :class => "btn btn-danger fav-btn favorite_action" %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+<%= link_to 'トップ', index_path, :class => "btn btn-success" %>
+<%= stylesheet_link_tag "list", :media => "all" %>
+<%= javascript_include_tag "disable" %>

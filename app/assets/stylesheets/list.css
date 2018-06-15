@@ -1,0 +1,51 @@
+
+h1 {
+  color: rgb(238, 150, 57);
+  text-align: center;
+  margin: 0 0 40px 0;
+  vertical-align: middle;
+}
+a.top, a:link.top, a:visited.top, a:hover.top, a:active.top{
+  color: rgb(238, 150, 57);
+  text-decoration: none;
+}
+
+.table {
+  width: 94%;
+  margin: 10px 0 10px 3%;
+
+}
+
+.table a{
+  margin-left: 30px;
+}
+td {
+  font-size: 18px;
+}
+
+.fav_all {
+  /*text-align: right;*/
+}
+a.btn {
+  margin: 0 10px 0 30px;
+  /*text-align: right;*/
+}
+.btn_right {
+  text-align: right;
+}
+.project_num {
+  display: inline-block;
+  font-size: 18px;
+}
+ul.pagination {
+  position: relative;
+  top: 10px;
+  margin: 10px 0 0 100px;
+}
+.left_space {
+  display: inline-block;
+  margin-left: 40px;
+}
+a.btn-success {
+  margin-left: 4%;
+}
