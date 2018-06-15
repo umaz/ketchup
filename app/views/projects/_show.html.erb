@@ -1,7 +1,0 @@
-<% if @lists.include?(@project.id.to_s) %>
-  <%= button_to "お気に入り解除", {:action => "fav_remove", :data => {:id => @project.id, :before => nil}}, :remote => true, :onclick => "disable()", :class => "btn btn-danger favorite_action" %>
-<% else %>
-  <%= button_to "お気に入り登録", {:action => "fav", :data => {:id => @project.id, :before => nil}}, :remote => true, :onclick => "disable()", :class => "btn btn-warning favorite_action" %>
-<% end %>
-<i class='glyphicon glyphicon-star'></i>
-<%= @project.count %>

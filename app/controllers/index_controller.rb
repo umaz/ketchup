@@ -1,2 +1,0 @@
-class IndexController < ProjectsController
-end
