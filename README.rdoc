@@ -1,4 +1,9 @@
 == README
+# start unicorn
+bundle exec unicorn -c /home/umaz/ketchup/config/unicorn.rb -E production -D
+
+# stop unicorn
+kill -QUIT `cat tmp/pids/unicorn.pid`
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
