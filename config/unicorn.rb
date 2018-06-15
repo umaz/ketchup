@@ -2,7 +2,7 @@
 # set lets
   $worker  = 2
   $timeout = 30
-  $app_dir = "/home/umaz/ketchup" #自分のアプリケーション名
+  $app_dir = File.expand_path('../../', __FILE__)
   $listen  = File.expand_path 'tmp/sockets/.unicorn.sock', $app_dir
   $pid     = File.expand_path 'tmp/pids/unicorn.pid', $app_dir
   $std_log = File.expand_path 'log/unicorn.log', $app_dir
