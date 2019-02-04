@@ -18,4 +18,5 @@
 
 /vendor/*
 /config/database.yml
+/config/secrets.yml
 /db/*.csv
